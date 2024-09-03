@@ -1,4 +1,4 @@
-// src/components/TopTracksList.tsx
+// src/components/TopTracksList
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 

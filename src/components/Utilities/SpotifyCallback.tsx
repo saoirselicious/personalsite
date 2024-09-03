@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getSpotifyTokenFromCode } from './SpotifyAuth.tsx';
+import { getSpotifyTokenFromCode } from './SpotifyAuth';
 
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);

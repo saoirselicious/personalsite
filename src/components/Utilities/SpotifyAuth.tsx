@@ -1,12 +1,14 @@
-// spotifyAuth.ts
 import axios from 'axios';
 
-const clientId = 'c1df2cffc2f1452fb87fdd78c6a5ba02';
-const clientSecret = '6155685198ea4df9b486b8a5242451cb';
-const redirectUri = 'http://localhost:3000/callback'; // Replace with your actual redirect URI
+// Use the non-null assertion operator (!) if you are certain these values will be defined
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID!;
+const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET!;
+const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI!;
+
+console.log(clientId);
 
 export const redirectToSpotifyAuth = () => {
-    console.log("Spotify Auth: redirectToSpotifyAuth")
+    console.log("Spotify Auth: redirectToSpotifyAuth");
     const scopes = 'user-top-read'; // Add necessary scopes here
     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
 };
@@ -27,7 +29,14 @@ export const getSpotifyTokenFromCode = async (code: string) => {
         });
         return response.data;
     } catch (error) {
-        console.error('Error fetching token:', error.response?.data || error.message);
+        // Assert the error type
+        if (axios.isAxiosError(error)) {
+            // Access specific properties of the AxiosError object
+            console.error('Error fetching token:', error.response?.data || error.message);
+        } else {
+            // Handle other error types if necessary
+            console.error('An unexpected error occurred:', error);
+        }
         throw error;
     }
 };
@@ -46,7 +55,14 @@ export const getClientCredentialsToken = async () => {
         });
         return response.data;
     } catch (error) {
-        console.error('Error fetching token:', error.response?.data || error.message);
+        // Assert the error type
+        if (axios.isAxiosError(error)) {
+            // Access specific properties of the AxiosError object
+            console.error('Error fetching token:', error.response?.data || error.message);
+        } else {
+            // Handle other error types if necessary
+            console.error('An unexpected error occurred:', error);
+        }
         throw error;
     }
 };

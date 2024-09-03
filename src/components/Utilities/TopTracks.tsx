@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { redirectToSpotifyAuth } from './SpotifyAuth.tsx'; // Removed the `.tsx` extension
+import { redirectToSpotifyAuth } from './SpotifyAuth'; // Removed the `` extension
 import { useNavigate } from 'react-router-dom';
 
 const TopTracks: React.FC = () => {

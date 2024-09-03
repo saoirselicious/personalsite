@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Homepage from './components/Homepage/Homepage.tsx';
-import Header from './components/NavBar/NavBar.tsx';
-import TopTracks from './components/Utilities/TopTracks.tsx';
-import TopTracksList from './components/Utilities/TopTracksList.tsx';
-import SpotifyCallback from './components/Utilities/SpotifyCallback.tsx';
+import Homepage from './components/Homepage/Homepage';
+import Header from './components/NavBar/NavBar';
+import TopTracks from './components/Utilities/TopTracks';
+import TopTracksList from './components/Utilities/TopTracksList';
+import SpotifyCallback from './components/Utilities/SpotifyCallback';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { LoadingProvider, LoadingSplash, useLoading, ErrorProvider, ErrorSplash, useError, NotFoundSplash } from './components/Splashscreen.tsx/SplashScreen.tsx';
+import { LoadingProvider, LoadingSplash, useLoading, ErrorProvider, ErrorSplash, useError, NotFoundSplash } from './components/Splashscreen/SplashScreen';
 
 export default function App() {
   return <LoadingProvider><ErrorProvider><AppContent /></ErrorProvider></LoadingProvider>
