@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Homepage from './components/Homepage/Homepage';
 import Header from './components/NavBar/NavBar';
+import Skills from "./components/Homepage/Skills"
+import Expierence from "./components/Homepage/Timeline"
 import TopTracks from './components/Utilities/TopTracks';
 import TopTracksList from './components/Utilities/TopTracksList';
 import SpotifyCallback from './components/Utilities/SpotifyCallback';
@@ -50,8 +52,10 @@ function AppContent() {
       <button id="theme-toggle">Click Here</button>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/sortihue" element={<TopTracks />} />
-        <Route path="/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
+        <Route path="/project/sortihue" element={<TopTracks />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/experience" element={<Expierence />} />
+        <Route path="/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
         <Route path="/sortihue/result" element={<TopTracksList token={token || ''} />} />
         <Route path="*" element={<NotFoundSplash />} />
       </Routes>

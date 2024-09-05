@@ -1,43 +1,25 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Select, MenuItem, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { SelectChangeEvent } from '@mui/material'; // Import SelectChangeEvent
+import './NavBar.css';
 
-export default function SimpleAppBar() {
-    const [selectedOption, setSelectedOption] = React.useState<string>('');
-    const navigate = useNavigate();
+const Navbar: React.FC = () => {
+  return (
+    <nav className="navbar">
+      <a href="/" className="navbar-logo">
+        <i className="icon-code"></i> <span className="logo-text">Name LastName</span>
+      </a>
+      <div className="navbar-links">
+        <a href="/skills" className="navbar-item">Skills</a>
+        <a href="/projects" className="navbar-item">Projects</a>
+        <a href="/experience" className="navbar-item">Experience</a>
+        <a href="/education" className="navbar-item">Education</a>
+        <a href="/resume" className="navbar-item">Resumé</a>
+      </div>
+      <div className="navbar-actions">
+        <a href="/search" className="action-item"><i className="icon-search"></i></a>
+        <button className="action-item"><i className="icon-sun"></i></button>
+      </div>
+    </nav>
+  );
+};
 
-    const handleChange = (event: SelectChangeEvent<string>) => {
-        const value = event.target.value;
-        setSelectedOption(value);
-
-        if (value) {
-            navigate(value);
-        }
-    };
-
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    Saoirse Seeber
-                </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Select
-                        value={selectedOption}
-                        onChange={handleChange}
-                        displayEmpty
-                        inputProps={{ 'aria-label': 'Without label' }}
-                        sx={{ color: 'white', borderColor: 'white', minWidth: 120 }}
-                    >
-                        <MenuItem value="">
-                            <em>Select</em>
-                        </MenuItem>
-                        <MenuItem value="/sortihue">Sortihue</MenuItem>
-                        <MenuItem value="/">CV</MenuItem>
-                    </Select>
-                </Box>
-            </Toolbar>
-        </AppBar>
-    );
-}
+export default Navbar;
