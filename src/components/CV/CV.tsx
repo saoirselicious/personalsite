@@ -1,10 +1,65 @@
 import React from 'react';
 import '../../App.css';
-import { Button } from '@mui/material';
-import { AzuredevopsOriginal, CplusplusPlain, CsharpLine, DotNetPlain, JavascriptOriginal, MayaOriginal, PythonOriginal, ReactOriginal, UnrealengineOriginal, UnityPlain, TypescriptOriginal, CplusplusOriginal } from 'devicons-react';
+import {
+  AzuredevopsOriginal,
+  CplusplusPlain,
+  CsharpLine,
+  Css3Plain,
+  DotNetPlain,
+  JavascriptOriginal,
+  GitPlain,
+  Html5Original,
+  InsomniaPlain,
+  MayaOriginal,
+  PythonOriginal,
+  ReactOriginal,
+  UnrealengineOriginal,
+  UnityPlain,
+  VisualstudioPlain,
+  VscodePlain,
+  TypescriptOriginal,
+} from 'devicons-react';
 import data from './sample.json'; // Assuming the JSON is in the same folder
+import Tooltip from '@mui/material/Tooltip';
 
-function CV() {
+const skillIcons: { [key: string]: JSX.Element } = {
+  'Azure DevOps': <AzuredevopsOriginal size="2em" />,
+  'C++': <CplusplusPlain size="2em" />,
+  'C#': <CsharpLine size="2em" />,
+  'CSS': <Css3Plain size="2em" />,
+  'Git': <GitPlain size="2em" />,
+  'HTML': <Html5Original size="2em" />,
+  'Insomnia': <InsomniaPlain size="2em" />,
+  '.Net': <DotNetPlain size="2em" />,
+  '.NET': <DotNetPlain size="2em" />,
+  'Maya': <MayaOriginal size="2em" />,
+  'Javascript': <JavascriptOriginal size="2em" />,
+  'JavaScript': <JavascriptOriginal size="2em" />,
+  'Python': <PythonOriginal size="2em" />,
+  'React': <ReactOriginal size="2em" />,
+  'Unreal Engine': <UnrealengineOriginal size="2em" />,
+  'Visual Studio': <VisualstudioPlain size="2em" />,
+  'VS Code': <VscodePlain size="2em" />,
+  'Unity': <UnityPlain size="2em" />,
+  'Typescript': <TypescriptOriginal size="2em" />
+};
+
+interface SkillItemProps {
+  skills: string[];
+}
+
+const SkillItem: React.FC<SkillItemProps> = ({ skills }) => (
+  <span>
+    {skills.filter(skill => !skillIcons[skill]).join(', ')}
+    {skills.map(skill => skillIcons[skill] && (
+      <Tooltip title={skill} key={skill}>
+        <span>{skillIcons[skill]}</span>
+      </Tooltip>
+    ))}
+  </span>
+);
+
+const CV: React.FC = () => {
   const { summary, work_experience, education, programming_skills, hobbies } = data;
 
   return (
@@ -32,19 +87,8 @@ function CV() {
             <ul>
               {job.projects?.map((project, i) => (
                 <li key={i}>
-                  <strong>{project.name}:</strong> {project.description}
-                  <em>Technologies: {project.technologies.join(', ')}.</em>
-                  {project.technologies.includes('Azure DevOps') && <AzuredevopsOriginal />}
-                  {project.technologies.includes('C++') && <CplusplusPlain />}
-                  {project.technologies.includes('C#') && <CsharpLine />}
-                  {project.technologies.includes('.Net') && <DotNetPlain />}
-                  {project.technologies.includes('Maya') && <MayaOriginal />}
-                  {project.technologies.includes('Javascript') || project.technologies.includes('JavaScript') && <JavascriptOriginal />}
-                  {project.technologies.includes('Python') && <PythonOriginal />}
-                  {project.technologies.includes('React') && <ReactOriginal />}
-                  {project.technologies.includes('Unreal Engine') && <UnrealengineOriginal />}
-                  {project.technologies.includes('Unity') && <UnityPlain />}
-                  {project.technologies.includes('Typescript') && <TypescriptOriginal />}
+                  <strong>{project.name}:</strong> <p>{project.description}</p> 
+                  <SkillItem skills={project.technologies} />
                 </li>
               ))}
             </ul>
@@ -66,20 +110,13 @@ function CV() {
       {/* Programming Skills */}
       <section className="skills">
         <h2>Programming Skills</h2>
+        <strong>Languages:</strong>
         <ul>
-          <li><strong>Languages:</strong> {programming_skills.languages.join(', ')}                   
-            {programming_skills.languages.includes('Azure DevOps') && <AzuredevopsOriginal />}
-            {programming_skills.languages.includes('C++') && <CplusplusPlain />}
-            {programming_skills.languages.includes('C#') && <CsharpLine />}
-            {programming_skills.languages.includes('.Net') && <DotNetPlain />}
-            {programming_skills.languages.includes('Maya') && <MayaOriginal />}
-            {programming_skills.languages.includes('Javascript') || programming_skills.languages.includes('JavaScript') && <JavascriptOriginal />}
-            {programming_skills.languages.includes('Python') && <PythonOriginal />}
-            {programming_skills.languages.includes('React') && <ReactOriginal />}
-            {programming_skills.languages.includes('Unreal Engine') && <UnrealengineOriginal />}
-            {programming_skills.languages.includes('Unity') && <UnityPlain />}
-            {programming_skills.languages.includes('Typescript') && <TypescriptOriginal />}</li>
-          <li><strong>Technologies:</strong> {programming_skills.technologies.join(', ')}</li>
+          <SkillItem skills={programming_skills.languages} />
+        </ul>
+        <strong>Technologies</strong>
+        <ul>
+          <SkillItem skills={programming_skills.technologies} />
         </ul>
       </section>
 
@@ -94,6 +131,6 @@ function CV() {
       </section>
     </div>
   );
-}
+};
 
 export default CV;

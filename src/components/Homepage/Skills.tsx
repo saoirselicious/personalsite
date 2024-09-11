@@ -1,43 +1,75 @@
 import React, { useState } from 'react';
-import { Box, Typography, InputBase, Card, CardContent, styled } from '@mui/material';
+import { Box, Typography, InputBase, Card, TextField, styled, Icon } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import SearchIcon from '@mui/icons-material/Search';
-import jsImage from '../../images/logos/js.png';
-import tsImage from '../../images/logos/ts.png';
-import cssImage from '../../images/logos/css.png';
-import htmlImage from '../../images/logos/html.png';
-import sassImage from '../../images/logos/sass.png';
-import reactImage from '../../images/logos/react.png';
+import {
+  AzuredevopsOriginal,
+  BitbucketOriginal,
+  CplusplusPlain,
+  CsharpLine,
+  Css3Plain,
+  DotNetPlain,
+  JavascriptOriginal,
+  GitPlain,
+  Html5Original,
+  InsomniaPlain,
+  MayaOriginal,
+  PythonOriginal,
+  ReactOriginal,
+  UnrealengineOriginal,
+  UnityPlain,
+  VisualstudioPlain,
+  VscodePlain,
+  TypescriptOriginal,
+} from 'devicons-react';
 
 // Define Skill Type
 type Skill = {
   name: string;
-  image: string;
   classification: string;
 };
 
 // Sample skills data
 const skillsData: Skill[] = [
-  { name: 'JavaScript', image: jsImage, classification: "Programming Languages" },
-  { name: 'TypeScript', image: tsImage, classification: "Programming Languages" },
-  { name: 'CSS', image: cssImage, classification: "Markup" },
-  { name: 'HTML', image: htmlImage, classification: "Markup" },
-  { name: 'Sass', image: sassImage, classification: "Libraries" },
-  { name: 'React Js', image: reactImage, classification: "Libraries" },
+  { name: 'Javascript', classification: "Programming Languages" },
+  { name: 'Typescript', classification: "Programming Languages" },
+  { name: 'CSS', classification: "Markup" },
+  { name: 'HTML', classification: "Markup" },
+  { name: 'React', classification: "Libraries" },
+  { name: 'Azure DevOps', classification: "DevOps" },
+  { name: 'C++', classification: "Programming Languages" },
+  { name: 'C#', classification: "Programming Languages" },
+  { name: 'Git', classification: "Version Control" },
+  { name: 'Bitbucket', classification: "Version Control" },
+  { name: 'Insomnia', classification: "Tools" },
+  { name: '.Net', classification: "Libraries" },
+  { name: 'Maya', classification: "3D Modeling" },
+  { name: 'Python', classification: "Programming Languages" },
+  { name: 'Unreal Engine', classification: "Game Engines" },
+  { name: 'Visual Studio', classification: "Tools" },
+  { name: 'VS Code', classification: "Tools" },
+  { name: 'Unity', classification: "Game Engines" }
 ];
-
-// Styled InputBase
-const SearchInput = styled(InputBase)({
-  borderRadius: '15px',
-  backgroundColor: '#f0f0f0',
-  padding: '0 10px',
-  width: '100%',
-  maxWidth: '300px',
-  marginBottom: '20px',
-  '& .MuiInputBase-input': {
-    padding: '10px',
-  },
-});
+// Define icons for each skill
+const skillIcons: { [key: string]: JSX.Element } = {
+  'Azure DevOps': <AzuredevopsOriginal size="5em" />,
+  'Bitbucket': <BitbucketOriginal size="5em" />,
+  'C++': <CplusplusPlain size="5em" />,
+  'C#': <CsharpLine size="5em" />,
+  'CSS': <Css3Plain size="5em" />,
+  'Git': <GitPlain size="5em" />,
+  'HTML': <Html5Original size="5em" />,
+  'Insomnia': <InsomniaPlain size="5em" />,
+  '.Net': <DotNetPlain size="5em" />,
+  'Maya': <MayaOriginal size="5em" />,
+  'Javascript': <JavascriptOriginal size="5em" />,
+  'Python': <PythonOriginal size="5em" />,
+  'React': <ReactOriginal size="5em" />,
+  'Unreal Engine': <UnrealengineOriginal size="5em" />,
+  'Visual Studio': <VisualstudioPlain size="5em" />,
+  'VS Code': <VscodePlain size="5em" />,
+  'Unity': <UnityPlain size="5em" />,
+  'Typescript': <TypescriptOriginal size="5em" />,
+};
 
 // Main Page Component
 const Skills: React.FC = () => {
@@ -64,53 +96,53 @@ const Skills: React.FC = () => {
   }, {} as { [key: string]: Skill[] });
 
   return (
-    <Box p={3} textAlign="center">
+    <Box p={3} component="section" textAlign="center">
       <Typography variant="h1" gutterBottom>
         Skills
       </Typography>
-      <SearchInput
-        placeholder="Search..."
+      <TextField
+        id="skills-search"
+        label="Search"
+        variant="outlined"
+        style={{ width: "75%", marginBottom: '20px', backgroundColor: 'var(--highlight-background-color)' }}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        startAdornment={<SearchIcon />}
       />
       <Box>
         {Object.keys(filteredSkills).map((classification) => (
           <div key={classification}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" style={{ margin: '40px' }}>
               {classification}
             </Typography>
             <Grid container spacing={3}>
               {filteredSkills[classification].map((skill) => (
-                <Card
-                  key={skill.name}
-                  sx={{
-                    width: 560,
-                    height: 70,
-                    borderRadius: 3,
-                    backgroundImage: `
-                    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.3) 100%),
-                    url(${skill.image})`,
-                    backgroundSize: '50%',
-                    backgroundPosition: 'right center',
-                    backgroundRepeat: 'no-repeat',
-                    display: 'flex',
-                    alignItems: 'flex-end', // Align the content at the bottom
-                    color: 'black', // Text color on the image
-                  }}
-                >
-                  <CardContent>
+                <Grid size={4}>
+                  <Card
+                    key={skill.name}
+                    sx={{
+                      borderRadius: 3,
+                      width: '95%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0 10px',
+                      backgroundColor: 'var(--card-background-color)',
+                      color: 'var(--text-color)'
+                    }}
+                  >
                     <Typography variant="h6" component="div">
                       {skill.name}
                     </Typography>
-                  </CardContent>
-                </Card>
+
+                    {skillIcons[skill.name] || <Typography>No Icon</Typography>}
+                  </Card>
+                </Grid>
               ))}
             </Grid>
           </div>
         ))}
       </Box>
-    </Box>
+    </Box >
   );
 };
 

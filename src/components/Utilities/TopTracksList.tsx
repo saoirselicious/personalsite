@@ -43,7 +43,7 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
     const { setLoading } = useLoading();
 
     useEffect(() => {
-        setLoading(true);
+        //setLoading(true);
         const fetchTracks = async () => {
             try {
                 const topTracks = await getTopTracks(token);
@@ -84,7 +84,7 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
                             <img
                                 src={track.album.images[0]?.url}
                                 alt={track.name}
-                                style={{ width: '75%', height: '75%' }}
+                                style={{ width: '50%', height: '50%' }}
                             />
                             <div>
                                 <span>

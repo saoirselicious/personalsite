@@ -114,7 +114,7 @@ export default function Expierence() {
                         sx={{
                             flex: '0 0 auto',
                             marginLeft: '5px',
-                            marginRight: '5px'
+                            marginRight: '5px',
                         }}
                     >
                         <TimelineDot
@@ -127,18 +127,35 @@ export default function Expierence() {
                         </TimelineDot>
                         {index < experiences.length - 1 && <TimelineConnector />}
                     </TimelineSeparator>
-                    <TimelineContent>
-                        <Accordion>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <TimelineContent sx={{
+
+                    }}>
+                        <Accordion sx={{
+                            borderRadius: '10px',
+                            border: 'none',
+                            justifyContent: 'space-between',
+                            background: 'none'
+                        }}>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{
+                                backgroundColor: 'var(--card-background-color)',
+                                color: 'var(--text-color)',
+                                borderRadius: '10px',
+                                justifyContent: 'space-between',
+                            }}>
                                 <Typography>{`${exp.title} (${exp.role})`}</Typography>
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails sx={{
+                                backgroundColor: 'var(--highlight-background-color)',
+                                color: 'var(--text-color)',
+                                textAlign: 'left',
+                                borderRadius: '10px',
+                            }}>
                                 <Typography>
                                     {exp.projects.length > 0 ? (
                                         <ul>
                                             {exp.projects.map((project, idx) => (
                                                 <li key={idx}>
-                                                    <b>{project.title}:</b> {project.info} (Tech: {project.tech.join(', ')})
+                                                    <b>{project.title}:</b>{project.info} (Tech: {project.tech.join(', ')})
                                                 </li>
                                             ))}
                                         </ul>
@@ -150,8 +167,9 @@ export default function Expierence() {
                         </Accordion>
                     </TimelineContent>
                 </TimelineItem>
-            ))}
-        </Timeline>
+            ))
+            }
+        </Timeline >
 
     );
 }

@@ -1,21 +1,25 @@
 /* Light Mode */
 
 :root {
-  --primary-color: #5CB25D; /* Deep Ocean Blue */
-  --secondary-color: #4D6A8C; /* Winter Sky Blue */
-  --accent-color: #A7C4D3; /* Frosted Blue */
-  --text-color: #2C3E50; /* Charcoal Blue */
-  --background-color: #faf6ed; /* Snow White */
+  --primary-color: #6D28D9; /* Purple */
+  --secondary-color: #34D399; /* Green */
+  --accent-color: #D6BCFA; /* Light Purple */
+  --text-color: #1F2937; /* Dark Gray */
+  --background-color: #F3F4F6; /* Light Gray for overall background */
+  --card-background-color: #FFFFFF; /* White background for cards */
+  --highlight-background-color: #F9FAFB; /* Very Light Gray for search boxes */
 }
 
 /* Dark Mode */
 
 [data-theme='dark'] {
-  --primary-color: #BB86FC; 
-  --secondary-color: #3700B3; 
-  --accent-color: #03DAC6; 
-  --text-color: #ffffff; 
-  --background-color: #1F1B24 ; 
+  --primary-color: #9B86FC; /* Purple */
+  --secondary-color: #00A859; /* Green */
+  --accent-color: #B6A2E3; /* Light Purple */
+  --text-color: #E5E7EB; /* Light Gray */
+  --background-color: #1F1B24; /* Very Dark Gray */
+  --card-background-color: #2D2D2D; /* Dark Gray for cards */
+  --highlight-background-color: #3B3B3B; /* Slightly lighter dark gray for search boxes */
 }
 
 body{
@@ -154,7 +158,7 @@ section h2 {
 
 .navbar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   border-bottom: 1px solid #ddd;
@@ -167,20 +171,21 @@ section h2 {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #333;
+  color: var(--text-color)
 }
 
 .logo-text {
   margin-left: 8px;
   font-weight: bold;
-  line-height: 1; /* Makes sure the text is centered */
+  line-height: 1;
 }
 
 .navbar-links {
   display: flex;
-  margin-left: 100px;
-  margin-right: 100px;
   gap: 16px;
+}
+.icon {
+  margin-right: 5px;
 }
 
 .navbar-item {
@@ -188,24 +193,53 @@ section h2 {
   align-items: center;
   margin-left: 40px;
   text-decoration: none;
-  padding-top: 2px; /* Adjust this as needed */
+  padding-top: 2px;
 }
-
 
 .navbar-actions {
-  margin-left: 40px;
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
-.action-item {
+.mobile-menu-icon {
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 24px;
 }
 
-.icon{
-  margin-right: 5px;
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+  .navbar-links {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    display: none;
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .navbar-item {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .navbar-actions {
+    gap: 0;
+  }
 }
 
 /* Highlight Text in Nav */
@@ -230,13 +264,17 @@ div.highlightTextOut a:hover:before, div.highlightTextIn a:hover:before
   opacity: 1;
 }
 
-/* Highlight text in  */
-div.highlightTextIn a
-{
-  color: rgba(0, 0, 0, 0.4); 
+/* Highlight Text Adjustments */
+div.highlightTextIn a {
+  color: var(--text-color); /* Adapt to the current theme's text color */
 }
 
-div.highlightTextIn a:before
-{
-  transform: scale(1.2);
-} 
+div.highlightTextOut a:before, 
+div.highlightTextIn a:before {
+  color: var(--secondary-color); /* Use the secondary color for better contrast */
+}
+
+/* Dark Mode - Navbar Borders */
+[data-theme='dark'] .navbar {
+  border-bottom: 1px solid var(--secondary-color); /* Adjust for dark mode */
+}
