@@ -1,6 +1,9 @@
 // src/components/TopTracksList
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
+import Grid from '@mui/material/Grid2';
+import { Box } from '@mui/material';
+import { useLoading } from '../Splashscreen/SplashScreen';
 
 interface Track {
     name: string;
@@ -15,6 +18,8 @@ interface Props {
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
+
+
     try {
         const res = await axios({
             url: `https://api.spotify.com/${endpoint}`,
@@ -29,19 +34,20 @@ const fetchWebApi = async (endpoint: string, token: string) => {
 };
 
 const getTopTracks = async (token: string): Promise<Track[]> => {
-    const data = await fetchWebApi('v1/me/top/tracks?time_range=long_term&limit=5', token);
+    const data = await fetchWebApi('v1/me/top/tracks?time_range=long_term&limit=50', token);
     return data.items;
 };
 
 const TopTracksList: React.FC<Props> = ({ token }) => {
     const [tracks, setTracks] = useState<Track[]>([]);
+    const { setLoading } = useLoading();
 
     useEffect(() => {
+        setLoading(true);
         const fetchTracks = async () => {
             try {
                 const topTracks = await getTopTracks(token);
                 setTracks(topTracks);
-                SendTracks(topTracks);
             } catch (err) {
                 console.error(err);
             }
@@ -50,38 +56,47 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
         fetchTracks();
     }, [token]);
 
-    const SendTracks = (data: Track[]) => {
-        const sendTracksData = async () => {
-
-            try {
-                const response = await axios.post('http://127.0.0.1:5000/receive-tracks', data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                console.log(response.data); // Handle success response
-            } catch (error) {
-                console.error('Error sending data:', error); // Handle error
-            }
-        };
-        sendTracksData();
-    }
+    useEffect(() => {
+        if (tracks.length > 0) {
+            const sendTracksData = async () => {
+                try {
+                    const response = await axios.post('personalsite-backend.profitable-sheri.internal:8000/receive-tracks', tracks, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    console.log(response.data); // Handle success response
+                } catch (error) {
+                    console.error('Error sending data:', error); // Handle error
+                }
+            };
+            sendTracksData();
+            setLoading(false);
+        }
+    }, [tracks]);
 
     return (
-        <ul>
-            {tracks.map((track, index) => (
-                <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                    <img
-                        src={track.album.images[0]?.url}
-                        alt={track.name}
-                        style={{ width: '50px', height: '50px', marginRight: '10px' }}
-                    />
-                    <span>
-                        {track.name} by {track.artists.map(artist => artist.name).join(', ')}
-                    </span>
-                </li>
-            ))}
-        </ul>
+        <Box component="section">
+            <Grid container spacing={{ xs: 2, md: 8 }}>
+                {tracks.map((track, index) => (
+                    <Grid key={index} size={4}>
+                        <div style={{ textAlign: 'center' }}>
+                            <img
+                                src={track.album.images[0]?.url}
+                                alt={track.name}
+                                style={{ width: '75%', height: '75%' }}
+                            />
+                            <div>
+                                <span>
+                                    {track.name} by {track.artists.map(artist => artist.name).join(', ')}
+                                </span>
+                            </div>
+                        </div>
+                    </Grid>
+                ))}
+            </Grid>
+
+        </Box>
     );
 };
 

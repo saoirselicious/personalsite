@@ -98,17 +98,32 @@ export default function Expierence() {
     return (
         <Timeline position="alternate">
             {experiences.map((exp, index) => (
-                <TimelineItem key={index}>
-                    <Typography>{`${exp.startDate} - ${exp.endDate}`}</Typography>
-                    <TimelineSeparator>
+                <TimelineItem
+                    key={index}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                    }}
+                >
+                    <Typography
+                    >
+                        {`${exp.startDate} - ${exp.endDate}`}
+                    </Typography>
+                    <TimelineSeparator
+                        sx={{
+                            flex: '0 0 auto',
+                            marginLeft: '5px',
+                            marginRight: '5px'
+                        }}
+                    >
                         <TimelineDot
                             sx={{
-                                backgroundColor: 'transparent', // Optional: set a background color
-                                border: '2px solid #1976d2', // Customize border color
-                                padding: '4px', // Padding to create space around the icon
+                                backgroundColor: 'transparent',
+                                border: '2px solid var(--primary-color)',
                             }}
                         >
-                            {React.createElement(exp.icon, { sx: { color: '#1976d2' } })} {/* Adjust color if needed */}
+                            {React.createElement(exp.icon, { sx: { color: 'var(--primary-color)' } })}
                         </TimelineDot>
                         {index < experiences.length - 1 && <TimelineConnector />}
                     </TimelineSeparator>
@@ -137,5 +152,6 @@ export default function Expierence() {
                 </TimelineItem>
             ))}
         </Timeline>
+
     );
 }

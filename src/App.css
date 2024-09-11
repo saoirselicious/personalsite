@@ -1,21 +1,26 @@
 /* Light Mode */
 
 :root {
-  --primary-color: #003B5C; /* Deep Ocean Blue */
+  --primary-color: #5CB25D; /* Deep Ocean Blue */
   --secondary-color: #4D6A8C; /* Winter Sky Blue */
   --accent-color: #A7C4D3; /* Frosted Blue */
   --text-color: #2C3E50; /* Charcoal Blue */
-  --background-color: #F8F9FA; /* Snow White */
+  --background-color: #faf6ed; /* Snow White */
 }
 
 /* Dark Mode */
 
 [data-theme='dark'] {
-  --primary-color: #003B5C; /* Deep Ocean Blue */
-  --secondary-color: #1F3A57; /* Midnight Blue */
-  --accent-color: #4B9ABF; /* Icy Blue */
-  --text-color: #E0E5E9; /* Frosted White */
-  --background-color: #1A1A2E; /* Deep Night Sky */
+  --primary-color: #BB86FC; 
+  --secondary-color: #3700B3; 
+  --accent-color: #03DAC6; 
+  --text-color: #ffffff; 
+  --background-color: #1F1B24 ; 
+}
+
+body{
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* General Container */
@@ -25,8 +30,6 @@
   margin: 0 auto;
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: var(--background-color);
-  color: var(--text-color);
 }
 
 /* Header Section */
@@ -42,7 +45,6 @@
 .header h1 {
   font-size: 2.5rem;
   margin: 0;
-  color: var(--primary-color);
 }
 
 .header div {
@@ -51,14 +53,12 @@
 
 .header p {
   margin: 2px 0;
-  color: var(--text-color);
 }
 
 /* Section Titles */
 section h2 {
   font-size: 1.8rem;
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--primary-color);
   padding-bottom: 5px;
   margin-bottom: 15px;
 }
@@ -67,7 +67,6 @@ section h2 {
 .summary p {
   font-size: 1rem;
   margin-bottom: 20px;
-  color: var(--text-color);
 }
 
 /* Experience Section */
@@ -78,13 +77,12 @@ section h2 {
 .experience .job h3 {
   font-size: 1.3rem;
   margin: 0;
-  color: var(--primary-color);
 }
 
 .experience .job p {
   margin: 5px 0;
   font-size: 0.95rem;
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .experience ul {
@@ -95,7 +93,6 @@ section h2 {
 
 .experience li {
   margin-bottom: 8px;
-  color: var(--text-color);
 }
 
 .experience strong {
@@ -104,7 +101,7 @@ section h2 {
 
 .experience em {
   font-style: italic;
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 /* Education Section */
@@ -115,13 +112,12 @@ section h2 {
 .education h3 {
   font-size: 1.2rem;
   margin: 0;
-  color: var(--primary-color);
 }
 
 .education p {
   margin: 5px 0;
   font-size: 0.95rem;
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 /* Programming Skills Section */
@@ -133,7 +129,6 @@ section h2 {
 
 .skills li {
   margin-bottom: 15px;
-  color: var(--text-color);
 }
 
 .skills strong {
@@ -149,15 +144,99 @@ section h2 {
 
 .hobbies li {
   margin-bottom: 10px;
-  color: var(--text-color);
 }
 
 .hobbies strong {
   font-weight: bold;
 }
 
-/* A */
+/* NAVBAR */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #ddd;
+  height: 50px;
+  font-size: 15px;
+  line-height: 1.25rem;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.logo-text {
+  margin-left: 8px;
+  font-weight: bold;
+  line-height: 1; /* Makes sure the text is centered */
+}
+
+.navbar-links {
+  display: flex;
+  margin-left: 100px;
+  margin-right: 100px;
+  gap: 16px;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  text-decoration: none;
+  padding-top: 2px; /* Adjust this as needed */
+}
 
 
+.navbar-actions {
+  margin-left: 40px;
+  display: flex;
+  gap: 8px;
+}
 
-/* B */
+.action-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon{
+  margin-right: 5px;
+}
+
+/* Highlight Text in Nav */
+
+
+div.highlightTextOut a:before, div.highlightTextIn a:before
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 10px;
+  overflow: hidden;
+  content: attr(alt);
+  transition: all 0.3s;
+  transform: scale(0.8);
+  opacity: 0;
+} 
+
+div.highlightTextOut a:hover:before, div.highlightTextIn a:hover:before
+{
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Highlight text in  */
+div.highlightTextIn a
+{
+  color: rgba(0, 0, 0, 0.4); 
+}
+
+div.highlightTextIn a:before
+{
+  transform: scale(1.2);
+} 

@@ -1,0 +1,101 @@
+{
+    "summary": "Experienced software engineer with nearly half a decade of professional experience in driving innovation. Proficient in quickly adapting to new technologies, driven to create the highest quality products & a desire for constant growth.",
+    "work_experience": [
+      {
+        "company": "General Motors Ireland",
+        "location": "Dublin, Ireland",
+        "position": "Full Stack Engineer",
+        "dates": "Nov 2023 - Present",
+        "description": "Front-end, back-end & dev-ops engineer on a team of approx. a dozen developers/QA team members. Responsible for the creation & maintenance of internal tools to ensure business success.",
+        "projects": [
+          {
+            "name": "AutoQA Dashboard",
+            "description": "Led development of a dashboard, tracking the progress of automating QA processes. Enhanced data scrubbing & streamlined environment promotion using CI/CD pipelines.",
+            "technologies": ["React", ".Net", "Azure DevOps"]
+          },
+          {
+            "name": "Application Monitoring",
+            "description": "Developed an application to monitor GM applications & improve outage management. Acted as Scrum Lead when needed to ensure adherence to Agile practices.",
+            "technologies": ["React", ".Net"]
+          }
+        ]
+      },
+      {
+        "company": "General Motors Ireland",
+        "location": "Dublin, Ireland",
+        "position": "Immersive Software Developer",
+        "dates": "July 2021 - Nov 2023",
+        "description": "Collaborated with a small group of developers and artists on various Proof of Concepts (POCs), leveraging diverse technologies.",
+        "projects": [
+          {
+            "name": "Metahuman Chatbot",
+            "description": "Created a Character Interaction System for GM’s chatbot, powered by AI for voice interaction and emotion detection.",
+            "technologies": ["Unreal Engine", "Python", "JavaScript"]
+          },
+          {
+            "name": "Process Automation",
+            "description": "Developed automation tools to streamline data management & enhance workflows, saving over 100 hours per visualizer.",
+            "technologies": ["C++", "Unreal Engine", "Python"]
+          },
+          {
+            "name": "Tool Development",
+            "description": "Built Visualiser Toolkit, including Maya plugins for custom stitching & visual tweaks.",
+            "technologies": ["Python", "C++", "Maya", "Deltagen", "Unreal Engine"]
+          },
+          {
+            "name": "POC Development",
+            "description": "Developed various POCs including a digital brochure and a WebGL video conferencing application for Hololens.",
+            "technologies": ["Unreal Engine", "Unity", "C#"]
+          }
+        ]
+      },
+      {
+        "company": "General Motors Ireland",
+        "location": "Dublin, Ireland",
+        "position": "Immersive Software Apprentice",
+        "dates": "July 2020 - June 2021",
+        "description": "Assisted in the development of interactive tools & systems, gaining experience in various programming languages & technologies.",
+        "projects": [
+          {
+            "name": "Panoramic Environment Template",
+            "description": "Created a website that combined various panoramic images with interactive hot spots.",
+            "technologies": ["JavaScript", "HTML", "WebGL"]
+          },
+          {
+            "name": "Metadata Implementation",
+            "description": "Led creation of a tool to extract design files data & apply as metadata to JT files.",
+            "technologies": ["C++"]
+          }
+        ]
+      },
+      {
+        "company": "Self-employed",
+        "location": "Dublin, Ireland",
+        "position": "Music Teacher",
+        "dates": "Aug 2013 - June 2020",
+        "description": "Provided music education to diverse groups of students, developing lesson plans, motivating learners, & organizing events to showcase student achievements."
+      }
+    ],
+    "education": [
+      {
+        "institution": "Trinity College Dublin",
+        "degree": "MSc in Interactive Digital Media",
+        "grade": "2.1",
+        "dates": "Aug 2018 - Nov 2019"
+      },
+      {
+        "institution": "University College Dublin",
+        "degree": "BMus",
+        "dates": "Aug 2013 - Aug 2016"
+      }
+    ],
+    "programming_skills": {
+      "languages": ["Python", "C#", "C++", "JavaScript", "HTML", "CSS", "Unreal Blueprints"],
+      "technologies": ["React", ".NET", "Azure DevOps", "Visual Studio", "VS Code", "Git", "Insomnia", "pgadmin", "Unreal Engine", "Unity"]
+    },
+    "hobbies": [
+      "Designing & Building Game Prototypes",
+      "Music Technology",
+      "Organizing Concerts"
+    ]
+  }

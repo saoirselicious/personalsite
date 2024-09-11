@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Typography, InputBase, Card, CardContent, CardMedia, styled } from '@mui/material';
+import { Box, Typography, InputBase, Card, CardContent, styled } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import SearchIcon from '@mui/icons-material/Search';
 import jsImage from '../../images/logos/js.png';
 import tsImage from '../../images/logos/ts.png';
@@ -39,7 +40,7 @@ const SearchInput = styled(InputBase)({
 });
 
 // Main Page Component
-const Homepage: React.FC = () => {
+const Skills: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Group skills by classification
@@ -73,33 +74,44 @@ const Homepage: React.FC = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         startAdornment={<SearchIcon />}
       />
-      {Object.keys(filteredSkills).map((classification) => (
-        <Box key={classification} mt={4}>
-          <Typography variant="h4" gutterBottom>
-            {classification}
-          </Typography>
-          <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap">
-            {filteredSkills[classification].map((skill) => (
-              <Card key={skill.name} sx={{ width: 200 }}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={skill.image}
-                  alt={skill.name}
-                  sx={{ objectFit: 'contain' }}
-                />
-                <CardContent>
-                  <Typography variant="h6" component="div">
-                    {skill.name}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-        </Box>
-      ))}
+      <Box>
+        {Object.keys(filteredSkills).map((classification) => (
+          <div key={classification}>
+            <Typography variant="h4" gutterBottom>
+              {classification}
+            </Typography>
+            <Grid container spacing={3}>
+              {filteredSkills[classification].map((skill) => (
+                <Card
+                  key={skill.name}
+                  sx={{
+                    width: 560,
+                    height: 70,
+                    borderRadius: 3,
+                    backgroundImage: `
+                    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0.3) 100%),
+                    url(${skill.image})`,
+                    backgroundSize: '50%',
+                    backgroundPosition: 'right center',
+                    backgroundRepeat: 'no-repeat',
+                    display: 'flex',
+                    alignItems: 'flex-end', // Align the content at the bottom
+                    color: 'black', // Text color on the image
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="h6" component="div">
+                      {skill.name}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Grid>
+          </div>
+        ))}
+      </Box>
     </Box>
   );
 };
 
-export default Homepage;
+export default Skills;

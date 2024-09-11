@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Homepage from './components/Homepage/Homepage';
-import Header from './components/NavBar/NavBar';
+import Navbar from './components/Navbar/Navbar';
 import Skills from "./components/Homepage/Skills"
 import Expierence from "./components/Homepage/Timeline"
+import Portfolio from './components/Homepage/Portfolio';
+import CV from './components/CV/CV';
 import TopTracks from './components/Utilities/TopTracks';
 import TopTracksList from './components/Utilities/TopTracksList';
 import SpotifyCallback from './components/Utilities/SpotifyCallback';
@@ -21,6 +23,7 @@ function AppContent() {
   const { error } = useError();
 
   const toggleTheme = () => {
+    console.log("toggleTheme");
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
@@ -40,23 +43,26 @@ function AppContent() {
   }, []);
 
   if (error) {
+    <Navbar toggleTheme={toggleTheme} />
     return <ErrorSplash />;
   }
   if (loading) {
+    <Navbar toggleTheme={toggleTheme} />
     return <LoadingSplash />;
   }
 
   return (
     <Router>
-      <Header />
-      <button id="theme-toggle">Click Here</button>
+      <Navbar toggleTheme={toggleTheme} />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/project/sortihue" element={<TopTracks />} />
         <Route path="/skills" element={<Skills />} />
         <Route path="/experience" element={<Expierence />} />
-        <Route path="/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
-        <Route path="/sortihue/result" element={<TopTracksList token={token || ''} />} />
+        <Route path="/resume" element={<CV />} />
+        <Route path="/projects" element={<Portfolio />} />
+        <Route path="/projects/sortihue" element={<TopTracks />} />
+        <Route path="/projects/sortihue/result" element={<TopTracksList token={token || ''} />} />
+        <Route path="/projects/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
         <Route path="*" element={<NotFoundSplash />} />
       </Routes>
     </Router>
