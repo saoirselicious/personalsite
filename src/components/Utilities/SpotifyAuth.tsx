@@ -12,7 +12,7 @@ export const redirectToSpotifyAuth = () => {
 };
 
 export const getSpotifyTokenFromCode = async (code: string) => {
-    const url = 'http://profitable-sheri-seebers-8755823d.koyeb.app//api/spotify/auth'; // Update with your backend URL
+    const url = 'http://profitable-sheri-seebers-8755823d.koyeb.app/api/spotify/auth'; // Update with your backend URL
     try {
         const response = await axios.post(url, { code });
         return response.data;
