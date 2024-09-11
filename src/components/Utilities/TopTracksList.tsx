@@ -1,7 +1,6 @@
-// src/components/TopTracksList
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
 import { useLoading } from '../Splashscreen/SplashScreen';
 
@@ -18,11 +17,15 @@ interface Props {
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
-
+    const url = `http://localhost:8000${endpoint}`;
+    console.log(endpoint);
+    console.log(token);
+    console.log(`Request URL: ${url}`);
+    console.log(`Authorization Header: Bearer ${token}`);
 
     try {
         const res = await axios({
-            url: `https://api.spotify.com/${endpoint}`,
+            url: url,
             method: 'GET',
             headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         });
@@ -34,8 +37,9 @@ const fetchWebApi = async (endpoint: string, token: string) => {
 };
 
 const getTopTracks = async (token: string): Promise<Track[]> => {
-    const data = await fetchWebApi('v1/me/top/tracks?time_range=long_term&limit=50', token);
-    return data.items;
+    const data = await fetchWebApi('/api/spotify/top-tracks', token)
+        
+    return data.items || [];
 };
 
 const TopTracksList: React.FC<Props> = ({ token }) => {
@@ -49,29 +53,28 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
                 const topTracks = await getTopTracks(token);
                 setTracks(topTracks);
             } catch (err) {
-                console.error(err);
+                console.error('Error fetching top tracks:', err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchTracks();
-    }, [token]);
+    }, [token, setLoading]);
 
     useEffect(() => {
         if (tracks.length > 0) {
             const sendTracksData = async () => {
                 try {
-                    const response = await axios.post('personalsite-backend.profitable-sheri.internal:8000/receive-tracks', tracks, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                    const response = await axios.post('http://localhost:8000/receive-tracks', tracks, {
+                        headers: { 'Content-Type': 'application/json' },
                     });
-                    console.log(response.data); // Handle success response
+                    console.log('Tracks data sent successfully:', response.data);
                 } catch (error) {
-                    console.error('Error sending data:', error); // Handle error
+                    console.error('Error sending tracks data:', error);
                 }
             };
             sendTracksData();
-            setLoading(false);
         }
     }, [tracks]);
 
@@ -79,12 +82,12 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
         <Box component="section">
             <Grid container spacing={{ xs: 2, md: 8 }}>
                 {tracks.map((track, index) => (
-                    <Grid key={index} size={4}>
+                    <Grid key={index} item xs={12} sm={6} md={4}>
                         <div style={{ textAlign: 'center' }}>
                             <img
                                 src={track.album.images[0]?.url}
                                 alt={track.name}
-                                style={{ width: '50%', height: '50%' }}
+                                style={{ width: '100%', height: 'auto' }}
                             />
                             <div>
                                 <span>
@@ -95,7 +98,6 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
                     </Grid>
                 ))}
             </Grid>
-
         </Box>
     );
 };

@@ -12,30 +12,19 @@ export const redirectToSpotifyAuth = () => {
 };
 
 export const getSpotifyTokenFromCode = async (code: string) => {
-    const url = 'https://accounts.spotify.com/api/token';
-    const data = new URLSearchParams({
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: redirectUri,
-        client_id: clientId,
-        client_secret: clientSecret,
-    });
-
+    const url = 'http://localhost:8000/api/spotify/auth'; // Update with your backend URL
     try {
-        const response = await axios.post(url, data.toString(), {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        });
+        const response = await axios.post(url, { code });
         return response.data;
     } catch (error) {
-        // Assert the error type
         if (axios.isAxiosError(error)) {
-            // Access specific properties of the AxiosError object
+            // Error is an AxiosError
             console.error('Error fetching token:', error.response?.data || error.message);
         } else {
-            // Handle other error types if necessary
+            // Handle other types of errors
             console.error('An unexpected error occurred:', error);
         }
-        throw error;
+        throw error; // Re-throw the error if needed
     }
 };
 
