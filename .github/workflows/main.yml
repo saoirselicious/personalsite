@@ -18,11 +18,17 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: List directory contents
+        run: ls -R
+
       - name: Build
-        run: npm run build
+        run: npm run build --verbose
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.7
