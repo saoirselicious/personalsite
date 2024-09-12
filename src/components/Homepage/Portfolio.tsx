@@ -61,7 +61,7 @@ const Portfolio: React.FC = () => {
                                 >
                                     <img
                                         src={Sortihue}
-                                        alt="Sortihue template image"
+                                        alt="Sortihue template"
                                         style={{
                                             width: '100%',
                                             filter: 'blur(0px)',
