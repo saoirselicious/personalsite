@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid2';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { PythonOriginal, ReactOriginal } from 'devicons-react';
 import Sortihue from '../../images/projects/sortihueSample.jpg';
+import { Link } from 'react-router-dom';
 
 
 const Portfolio: React.FC = () => {
@@ -53,14 +54,14 @@ const Portfolio: React.FC = () => {
                                 position: 'relative',
                             }}
                         >
-                            <a href="/projects/sortihue">
+                             <Link to="/projects/sortihue">
                                 <Box
                                     component="picture"
                                     sx={{ display: 'block', position: 'relative' }}
                                 >
                                     <img
                                         src={Sortihue}
-                                        alt="Starfield Shattered Space"
+                                        alt="Sortihue template image"
                                         style={{
                                             width: '100%',
                                             filter: 'blur(0px)',
@@ -92,7 +93,7 @@ const Portfolio: React.FC = () => {
                                         <PythonOriginal size='2em' /> <ReactOriginal size='2em' />
                                     </Typography>
                                 </Box>
-                            </a>
+                            </Link>
                         </Box>
                     </Grid>
                 </Grid>
