@@ -1,20 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { redirectToSpotifyAuth } from './SpotifyAuth';
-import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Button, Box } from '@mui/material';
 
 const TopTracks: React.FC = () => {
-    const [token, setToken] = useState<string | undefined>(undefined);
     const [displayText, setDisplayText] = useState('');
-    const navigate = useNavigate();
     const intervalRef = useRef<NodeJS.Timeout | null>(null); // Ref to keep track of the interval
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem('spotifyToken');
-        if (storedToken) {
-            setToken(storedToken);
-        }
-    }, [navigate]);
 
     useEffect(() => {
         const fullText = ` Welcome to Sortihue\n\nWe will take your top 50 tracks and examine the artwork for each. \n\nThen we will tell you the 10 most frequent colours that appear in the artwork and what percentage can be attributed to which colour.`;

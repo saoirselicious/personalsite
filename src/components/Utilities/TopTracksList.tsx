@@ -66,7 +66,7 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
         if (tracks.length > 0) {
             const sendTracksData = async () => {
                 try {
-                    const response = await axios.post('http://profitable-sheri-seebers-8755823d.koyeb.app//receive-tracks', tracks, {
+                    const response = await axios.post('http://profitable-sheri-seebers-8755823d.koyeb.app/receive-tracks', tracks, {
                         headers: { 'Content-Type': 'application/json' },
                     });
                     console.log('Tracks data sent successfully:', response.data);
