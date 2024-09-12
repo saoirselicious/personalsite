@@ -17,7 +17,7 @@ interface Props {
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
-    const url = `http://profitable-sheri-seebers-8755823d.koyeb.app/${endpoint}`;
+    const url = `https://profitable-sheri-seebers-8755823d.koyeb.app/${endpoint}`;
     console.log(endpoint);
     console.log(token);
     console.log(`Request URL: ${url}`);
@@ -66,7 +66,7 @@ const TopTracksList: React.FC<Props> = ({ token }) => {
         if (tracks.length > 0) {
             const sendTracksData = async () => {
                 try {
-                    const response = await axios.post('http://profitable-sheri-seebers-8755823d.koyeb.app/receive-tracks', tracks, {
+                    const response = await axios.post('https://profitable-sheri-seebers-8755823d.koyeb.app/receive-tracks', tracks, {
                         headers: { 'Content-Type': 'application/json' },
                     });
                     console.log('Tracks data sent successfully:', response.data);
