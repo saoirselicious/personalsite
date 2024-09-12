@@ -8,6 +8,7 @@ import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
 import ViewTimelineOutlinedIcon from '@mui/icons-material/ViewTimelineOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   toggleTheme: () => void;
@@ -22,16 +23,16 @@ const Navbar: React.FC<NavbarProps> = ({ toggleTheme }) => {
 
   return (
     <nav className="navbar">
-      <a href="/" className="navbar-logo">
+      <Link to="/" className="navbar-logo">
         <CodeIcon /> <span className="logo-text">Saoirse Seeber</span>
-      </a>
+      </Link>
       
       <div className={`navbar-links highlightTextIn ${isMobileMenuOpen ? 'open' : ''}`}>
-        <a href="/skills" className="navbar-item"><EngineeringOutlinedIcon className='icon'/> Skills</a>
-        <a href="/projects" className="navbar-item"><ChecklistOutlinedIcon className='icon'/> Projects</a>
-        <a href="/experience" className="navbar-item"><ViewTimelineOutlinedIcon className='icon'/> Experience</a>
-        <a href="/education" className="navbar-item"><SchoolOutlinedIcon className='icon'/> Education</a>
-        <a href="/resume" className="navbar-item"><DescriptionOutlinedIcon className='icon'/> Resumé</a>
+        <Link to="/skills" className="navbar-item"><EngineeringOutlinedIcon className='icon'/> Skills</Link>
+        <Link to="/projects" className="navbar-item"><ChecklistOutlinedIcon className='icon'/> Projects</Link>
+        <Link to="/experience" className="navbar-item"><ViewTimelineOutlinedIcon className='icon'/> Experience</Link>
+        <Link to="/education" className="navbar-item"><SchoolOutlinedIcon className='icon'/> Education</Link>
+        <Link to="/resume" className="navbar-item"><DescriptionOutlinedIcon className='icon'/> Resumé</Link>
       </div>
 
       <div className="navbar-actions">
