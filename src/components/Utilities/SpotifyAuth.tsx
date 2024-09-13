@@ -5,6 +5,8 @@ const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID!;
 const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET!;
 const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI!;
 
+alert(redirectUri);
+
 export const redirectToSpotifyAuth = () => {
     console.log("Spotify Auth: redirectToSpotifyAuth");
     const scopes = 'user-top-read'; // Add necessary scopes here
