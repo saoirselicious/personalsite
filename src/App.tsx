@@ -24,7 +24,7 @@ export default function App() {
 
 function AppContent() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('spotifyToken'));
-  const [refreshToken, setRefreshToken] = useState<string | null>(() => localStorage.getItem('refreshToken') || null);
+  const [refreshToken] = useState<string | null>(() => localStorage.getItem('refreshToken') || null);
 
   const { loading } = useLoading();
   const { error } = useError();
