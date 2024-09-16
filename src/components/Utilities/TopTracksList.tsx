@@ -14,10 +14,11 @@ interface Track {
 
 interface Props {
     token: string;
+    refreshToken: string; // Add refreshToken as prop
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
-    const url = `https://profitable-sheri-seebers-8755823d.koyeb.app/${endpoint}`;
+    const url = `http://127.0.0.1:8000${endpoint}`;
     console.log(endpoint);
     console.log(token);
     console.log(`Request URL: ${url}`);
@@ -36,47 +37,82 @@ const fetchWebApi = async (endpoint: string, token: string) => {
     }
 };
 
-const getTopTracks = async (token: string): Promise<Track[]> => {
-    const data = await fetchWebApi('/api/spotify/top-tracks', token)
-        
-    return data.items || [];
+const getTopTracks = async (token: string, refreshToken: string): Promise<Track[]> => {
+    try {
+        const data = await fetchWebApi('/api/spotify/top-tracks', token);
+        return data.items || [];
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            if (error.response && error.response.status === 401 && refreshToken) {
+                console.log('Token expired, refreshing...');
+                const newToken = await refreshSpotifyToken(refreshToken);
+                if (newToken) {
+                    const data = await fetchWebApi('/api/spotify/top-tracks', newToken);
+                    return data.items || [];
+                } else {
+                    console.error('Failed to refresh token.');
+                    throw new Error('Failed to refresh token');
+                }
+            }
+        }
+        console.error('Failed to fetch top tracks:', error);
+        throw error;
+    }
 };
 
-const TopTracksList: React.FC<Props> = ({ token }) => {
+const refreshSpotifyToken = async (refreshToken: string): Promise<string | null> => {
+    try {
+        const response = await fetch('/api/spotify/auth/refresh', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ refreshToken }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.access_token) {
+            return data.access_token;
+        } else {
+            console.error('Error refreshing token:', data);
+            return null;
+        }
+    } catch (error) {
+        console.error('Failed to refresh token:', error);
+        return null;
+    }
+};
+
+const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
     const [tracks, setTracks] = useState<Track[]>([]);
     const { setLoading } = useLoading();
 
     useEffect(() => {
-        //setLoading(true);
+        if (!token) {
+            console.error('No token provided!');
+            return;
+        }
+
+        setLoading(true); // Start loading
+
         const fetchTracks = async () => {
             try {
-                const topTracks = await getTopTracks(token);
+                const topTracks = await getTopTracks(token, refreshToken); // Pass refreshToken
                 setTracks(topTracks);
             } catch (err) {
                 console.error('Error fetching top tracks:', err);
             } finally {
-                setLoading(false);
+                setLoading(false); // Stop loading
             }
         };
 
         fetchTracks();
-    }, [token, setLoading]);
+    }, [token, refreshToken, setLoading]);
 
-    useEffect(() => {
-        if (tracks.length > 0) {
-            const sendTracksData = async () => {
-                try {
-                    const response = await axios.post('https://profitable-sheri-seebers-8755823d.koyeb.app/receive-tracks', tracks, {
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                    console.log('Tracks data sent successfully:', response.data);
-                } catch (error) {
-                    console.error('Error sending tracks data:', error);
-                }
-            };
-            sendTracksData();
-        }
-    }, [tracks]);
+    if (!token) {
+        return <div>Please log in to view your top tracks.</div>;
+    }
 
     return (
         <Box component="section">

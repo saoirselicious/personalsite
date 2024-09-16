@@ -25,7 +25,7 @@ const SpotifyCallback: React.FC<{ onTokenFetched: (token: string) => void }> = (
                 if (data.access_token) {
                     localStorage.setItem('spotifyToken', data.access_token); // Ensure this line executes
                     onTokenFetched(data.access_token);
-                    navigate('/projects/sortihue/result'); // Redirect after setting token
+                    //navigate('/projects/sortihue/result'); // Redirect after setting token
                 } else {
                     setError('No access token received');
                 }

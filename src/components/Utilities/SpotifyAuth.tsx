@@ -3,7 +3,7 @@ import axios from 'axios';
 // Fetch Spotify configuration from your backend
 const fetchSpotifyConfig = async () => {
   try {
-    const response = await axios.get('https://profitable-sheri-seebers-8755823d.koyeb.app/api/spotify/config');
+    const response = await axios.get('http://127.0.0.1:8000/api/spotify/config');
     return response.data;
   } catch (error) {
     console.error('Error fetching Spotify config:', error);
@@ -25,7 +25,7 @@ export const redirectToSpotifyAuth = async () => {
 
 // Get Spotify token from authorization code
 export const getSpotifyTokenFromCode = async (code: string) => {
-  const url = 'https://profitable-sheri-seebers-8755823d.koyeb.app/api/spotify/auth'; // Update with your backend URL
+  const url = 'http://127.0.0.1:8000/api/spotify/auth'; // Update with your backend URL
   try {
     const response = await axios.post(url, { code });
     return response.data;
