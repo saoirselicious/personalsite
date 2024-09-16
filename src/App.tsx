@@ -49,6 +49,12 @@ function AppContent() {
     };
   }, []);
 
+  useEffect(() => {
+    if (refreshToken) {
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+  }, [refreshToken]);
+
   if (error) {
     return <ErrorSplash />;
   }
@@ -75,7 +81,8 @@ function AppContent() {
               refreshToken={refreshToken || localStorage.getItem('refreshToken') || ''}
             />
           }
-        />        <Route path="/projects/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
+        />
+        <Route path="/projects/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
         <Route path="*" element={<NotFoundSplash />} />
       </Routes>
     </Router>
