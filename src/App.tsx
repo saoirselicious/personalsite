@@ -9,7 +9,7 @@ import CV from './components/CV/CV';
 import TopTracks from './components/Utilities/TopTracks';
 import TopTracksList from './components/Utilities/TopTracksList';
 import SpotifyCallback from './components/Utilities/SpotifyCallback';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoadingProvider, LoadingSplash, useLoading, ErrorProvider, ErrorSplash, useError, NotFoundSplash } from './components/Splashscreen/SplashScreen';
 
 export default function App() {
