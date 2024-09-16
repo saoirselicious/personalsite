@@ -18,7 +18,7 @@ interface Props {
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
-    const url = `http://127.0.0.1:8000${endpoint}`;
+    const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
     console.log(endpoint);
     console.log(token);
     console.log(`Request URL: ${url}`);
