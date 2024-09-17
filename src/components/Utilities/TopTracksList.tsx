@@ -94,7 +94,7 @@ const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
             return;
         }
 
-        setLoading(true); // Start loading
+        //setLoading(true); // Start loading
 
         const fetchTracks = async () => {
             try {
