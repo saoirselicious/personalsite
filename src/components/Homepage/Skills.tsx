@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Card, TextField } from '@mui/material';
+import { Box, Container, Typography, Card, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import {
   AzuredevopsOriginal,
@@ -96,53 +96,55 @@ const Skills: React.FC = () => {
   }, {} as { [key: string]: Skill[] });
 
   return (
-    <Box p={3} component="section" textAlign="center">
-      <Typography variant="h1" gutterBottom>
-        Skills
-      </Typography>
-      <TextField
-        id="skills-search"
-        label="Search"
-        variant="outlined"
-        style={{ width: "75%", marginBottom: '20px', backgroundColor: 'var(--highlight-background-color)' }}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <Box>
-        {Object.keys(filteredSkills).map((classification) => (
-          <div key={classification}>
-            <Typography variant="h4" style={{ margin: '40px' }}>
-              {classification}
-            </Typography>
-            <Grid container spacing={3}>
-              {filteredSkills[classification].map((skill) => (
-                <Grid size={4}>
-                  <Card
-                    key={skill.name}
-                    sx={{
-                      borderRadius: 3,
-                      width: '95%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0 10px',
-                      backgroundColor: 'var(--card-background-color)',
-                      color: 'var(--text-color)'
-                    }}
-                  >
-                    <Typography variant="h6" component="div">
-                      {skill.name}
-                    </Typography>
+    <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+      <Box p={3} component="section" textAlign="center">
+        <Typography variant="h1" gutterBottom>
+          Skills
+        </Typography>
+        <TextField
+          id="skills-search"
+          label="Search"
+          variant="outlined"
+          style={{ width: "75%", marginBottom: '20px', backgroundColor: 'var(--highlight-background-color)' }}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Box>
+          {Object.keys(filteredSkills).map((classification) => (
+            <div key={classification}>
+              <Typography variant="h4" style={{ margin: '40px' }}>
+                {classification}
+              </Typography>
+              <Grid container spacing={3}>
+                {filteredSkills[classification].map((skill) => (
+                  <Grid size={4}>
+                    <Card
+                      key={skill.name}
+                      sx={{
+                        borderRadius: 3,
+                        width: '95%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '0 10px',
+                        backgroundColor: 'var(--card-background-color)',
+                        color: 'var(--text-color)'
+                      }}
+                    >
+                      <Typography variant="h6" component="div">
+                        {skill.name}
+                      </Typography>
 
-                    {skillIcons[skill.name] || <Typography>No Icon</Typography>}
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </div>
-        ))}
-      </Box>
-    </Box >
+                      {skillIcons[skill.name] || <Typography>No Icon</Typography>}
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+          ))}
+        </Box>
+      </Box >
+    </Container>
   );
 };
 

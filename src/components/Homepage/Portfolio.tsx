@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, IconButton, Typography, Select, MenuItem, Checkbox, ListItemText } from '@mui/material';
+import { Container, Box, IconButton, Typography, Select, MenuItem, Checkbox, ListItemText } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import WebAssetIcon from '@mui/icons-material/WebAsset';
 import Grid from '@mui/material/Grid2';
@@ -16,8 +16,8 @@ const Portfolio: React.FC = () => {
         setSelectedOptions(event.target.value as string[]);
     };
     return (
-        <div>
-            <Box className="Portfolio container" sx={{ position: 'relative' }}>
+        <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+            <Box className="Portfolio" sx={{ position: 'relative' }}>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
                     <IconButton>
@@ -54,7 +54,7 @@ const Portfolio: React.FC = () => {
                                 position: 'relative',
                             }}
                         >
-                             <Link to="/projects/sortihue">
+                            <Link to="/projects/sortihue">
                                 <Box
                                     component="picture"
                                     sx={{ display: 'block', position: 'relative' }}
@@ -86,7 +86,7 @@ const Portfolio: React.FC = () => {
                                     </Box>
 
                                     <Typography variant="h6">
-                                        <WebAssetIcon/>
+                                        <WebAssetIcon />
                                         Web Project
                                     </Typography>
                                     <Typography variant="body2">
@@ -98,8 +98,7 @@ const Portfolio: React.FC = () => {
                     </Grid>
                 </Grid>
             </Box>
-
-        </div>
+        </Container>
     );
 };
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Container } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -96,80 +97,82 @@ const experiences = [
 
 export default function Expierence() {
     return (
-        <Timeline position="alternate">
-            {experiences.map((exp, index) => (
-                <TimelineItem
-                    key={index}
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                    }}
-                >
-                    <Typography
-                    >
-                        {`${exp.startDate} - ${exp.endDate}`}
-                    </Typography>
-                    <TimelineSeparator
+        <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+
+            <Timeline position="alternate">
+                {experiences.map((exp, index) => (
+                    <TimelineItem
+                        key={index}
                         sx={{
-                            flex: '0 0 auto',
-                            marginLeft: '5px',
-                            marginRight: '5px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexDirection: 'row',
                         }}
                     >
-                        <TimelineDot
+                        <Typography
+                        >
+                            {`${exp.startDate} - ${exp.endDate}`}
+                        </Typography>
+                        <TimelineSeparator
                             sx={{
-                                backgroundColor: 'transparent',
-                                border: '2px solid var(--primary-color)',
+                                flex: '0 0 auto',
+                                marginLeft: '5px',
+                                marginRight: '5px',
                             }}
                         >
-                            {React.createElement(exp.icon, { sx: { color: 'var(--primary-color)' } })}
-                        </TimelineDot>
-                        {index < experiences.length - 1 && <TimelineConnector />}
-                    </TimelineSeparator>
-                    <TimelineContent sx={{
+                            <TimelineDot
+                                sx={{
+                                    backgroundColor: 'transparent',
+                                    border: '2px solid var(--primary-color)',
+                                }}
+                            >
+                                {React.createElement(exp.icon, { sx: { color: 'var(--primary-color)' } })}
+                            </TimelineDot>
+                            {index < experiences.length - 1 && <TimelineConnector />}
+                        </TimelineSeparator>
+                        <TimelineContent sx={{
 
-                    }}>
-                        <Accordion sx={{
-                            borderRadius: '10px',
-                            border: 'none',
-                            justifyContent: 'space-between',
-                            background: 'none'
                         }}>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{
-                                backgroundColor: 'var(--card-background-color)',
-                                color: 'var(--text-color)',
+                            <Accordion sx={{
                                 borderRadius: '10px',
+                                border: 'none',
                                 justifyContent: 'space-between',
+                                background: 'none'
                             }}>
-                                <Typography>{`${exp.title} (${exp.role})`}</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails sx={{
-                                backgroundColor: 'var(--highlight-background-color)',
-                                color: 'var(--text-color)',
-                                textAlign: 'left',
-                                borderRadius: '10px',
-                            }}>
-                                <Typography>
-                                    {exp.projects.length > 0 ? (
-                                        <ul>
-                                            {exp.projects.map((project, idx) => (
-                                                <li key={idx}>
-                                                    <b>{project.title}:</b>{project.info} (Tech: {project.tech.join(', ')})
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <Typography>No projects listed</Typography>
-                                    )}
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                    </TimelineContent>
-                </TimelineItem>
-            ))
-            }
-        </Timeline >
-
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{
+                                    backgroundColor: 'var(--card-background-color)',
+                                    color: 'var(--text-color)',
+                                    borderRadius: '10px',
+                                    justifyContent: 'space-between',
+                                }}>
+                                    <Typography>{`${exp.title} (${exp.role})`}</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails sx={{
+                                    backgroundColor: 'var(--highlight-background-color)',
+                                    color: 'var(--text-color)',
+                                    textAlign: 'left',
+                                    borderRadius: '10px',
+                                }}>
+                                    <Typography>
+                                        {exp.projects.length > 0 ? (
+                                            <ul>
+                                                {exp.projects.map((project, idx) => (
+                                                    <li key={idx}>
+                                                        <b>{project.title}:</b>{project.info} (Tech: {project.tech.join(', ')})
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <Typography>No projects listed</Typography>
+                                        )}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                        </TimelineContent>
+                    </TimelineItem>
+                ))
+                }
+            </Timeline >
+        </Container>
     );
 }
