@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import Skills from "./components/Homepage/Skills";
 import Experience from "./components/Homepage/Timeline";
 import Portfolio from './components/Homepage/Portfolio';
+import Contact from './components/Homepage/Contact';
 import CV from './components/CV/CV';
 import TopTracks from './components/Utilities/TopTracks';
 import TopTracksList from './components/Utilities/TopTracksList';
@@ -71,6 +72,7 @@ function AppContent() {
         <Route path="/skills" element={<Skills />} />
         <Route path="/experience" element={<Experience />} />
         <Route path="/resume" element={<CV />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/projects" element={<Portfolio />} />
         <Route path="/projects/sortihue" element={<TopTracks />} />
         <Route

@@ -8,6 +8,8 @@ import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
 import ViewTimelineOutlinedIcon from '@mui/icons-material/ViewTimelineOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ContactPageOutlinedIcon from '@mui/icons-material/ContactPageOutlined';
+
 import { Link } from 'react-router-dom';
 
 interface NavbarProps {
@@ -33,6 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleTheme }) => {
         <Link to="/experience" className="navbar-item"><ViewTimelineOutlinedIcon className='icon'/> Experience</Link>
         <Link to="/education" className="navbar-item"><SchoolOutlinedIcon className='icon'/> Education</Link>
         <Link to="/resume" className="navbar-item"><DescriptionOutlinedIcon className='icon'/> Resumé</Link>
+        <Link to="/contact" className="navbar-item"><ContactPageOutlinedIcon className='icon'/> Contact</Link>
       </div>
 
       <div className="navbar-actions">

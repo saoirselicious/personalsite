@@ -8,7 +8,6 @@ import { PythonOriginal, ReactOriginal } from 'devicons-react';
 import Sortihue from '../../images/projects/sortihueSample.jpg';
 import { Link } from 'react-router-dom';
 
-
 const Portfolio: React.FC = () => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 

@@ -14,7 +14,7 @@ interface Track {
 
 interface Props {
     token: string;
-    refreshToken: string; // Add refreshToken as prop
+    refreshToken: string; 
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {

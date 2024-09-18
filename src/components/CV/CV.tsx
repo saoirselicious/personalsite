@@ -69,7 +69,6 @@ const CV: React.FC = () => {
         {/* Header */}
         <header className="header">
           <h1>Saoirse Seeber (she/her)</h1>
-          {/* Email and Mobile can be added if needed */}
         </header>
 
         {/* Summary */}
