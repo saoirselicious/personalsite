@@ -23,7 +23,7 @@ const Education: React.FC<EducationProps> = ({ dataTheme }) => {
             src={TCDImg}
             alt="Profile Picture"
             sx={{
-              height: '150px', width: '425px', filter: dataTheme !== 'dark' ? 'invert(1)' : '',
+              height: 'auto', width: '100%', filter: dataTheme !== 'dark' ? 'invert(1)' : '',
             }}
           />
           <Typography variant="h6">
