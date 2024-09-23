@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Container, Button, FormControl, Typography, Box, InputLabel, Input } from '@mui/material';
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
-import { fetchRecaptchaConfig, fetchEmailJSConfig } from '../Utilities/ContactUtility';
+import { fetchRecaptchaConfig, fetchEmailJSConfig } from '../ContactUtility';
 
 const Contact: React.FC = () => {
   const [name, setName] = useState('');

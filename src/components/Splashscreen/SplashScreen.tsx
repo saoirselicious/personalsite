@@ -115,9 +115,9 @@ export const LoadingSplash: React.FC = () => {
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            height="75vh"
+            height="95vh"
         >
-            <CircularProgress size={size} />
+            <CircularProgress size={size} sx={{color: 'var(--secondary-color)'}}/>
             <br />
             <h6>Please Wait...</h6>
         </Box>

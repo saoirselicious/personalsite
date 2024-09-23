@@ -8,8 +8,9 @@ import Portfolio from './components/Homepage/Portfolio';
 import Contact from './components/Homepage/Contact';
 import CV from './components/CV/CV';
 import Education from './components/Homepage/Education';
-import TopTracks from './components/Utilities/TopTracks';
-import TopTracksList from './components/Utilities/TopTracksList';
+import TopTracks from './components/Sortihue/TopTracks';
+import TopTracksList from './components/Sortihue/TopTracksList';
+import Palette from './components/Sortihue/Palette';
 import SpotifyCallback from './components/Utilities/SpotifyCallback';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoadingProvider, LoadingSplash, useLoading, ErrorProvider, ErrorSplash, useError, NotFoundSplash } from './components/Splashscreen/SplashScreen';
@@ -70,7 +71,7 @@ function AppContent() {
     <Router>
       <Navbar toggleTheme={toggleTheme} />
       <LoadingSplash />
-      <div className={loading ? "hidden":""}>
+      <div className={loading ? "hidden" : ""}>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/skills" element={<Skills />} />
@@ -89,6 +90,7 @@ function AppContent() {
               />
             }
           />
+          <Route path="/projects/sortihue/result/:val" element={<Palette />} />
           <Route path="/projects/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
           <Route path="*" element={<NotFoundSplash />} />
         </Routes>

@@ -31,7 +31,7 @@ interface myExperience {
 
 export default function Experience() {
     const [data, setData] = useState<myExperience[]>([]);
-    const { setLoading } = useLoading();
+    const { loading,setLoading } = useLoading();
     const { setError } = useError();
 
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function Experience() {
     return (
         <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
             <Timeline position="alternate">
-                {data?.length === 0 ? (
+                {data?.length === 0 && loading === false? (
                     <p>No experience data available</p>
                 ) : (
                     data?.map((exp, index) => (

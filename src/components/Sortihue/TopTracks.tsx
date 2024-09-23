@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { redirectToSpotifyAuth } from './SpotifyAuth';
+import { redirectToSpotifyAuth } from '../Utilities/SpotifyAuth';
 import { Container, Typography, Button, Box } from '@mui/material';
 
 const TopTracks: React.FC = () => {

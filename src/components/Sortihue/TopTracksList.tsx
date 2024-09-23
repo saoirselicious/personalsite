@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { Container, Box } from '@mui/material';
 import { useLoading } from '../Splashscreen/SplashScreen';
+import { Link } from 'react-router-dom';
 
 interface Track {
     name: string;
@@ -14,15 +15,12 @@ interface Track {
 
 interface Props {
     token: string;
-    refreshToken: string; 
+    refreshToken: string;
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
-    const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
-    console.log(endpoint);
-    console.log(token);
-    console.log(`Request URL: ${url}`);
-    console.log(`Authorization Header: Bearer ${token}`);
+    // const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
+    const url = `http://127.0.0.1:8000${endpoint}`;
 
     try {
         const res = await axios({
@@ -40,6 +38,7 @@ const fetchWebApi = async (endpoint: string, token: string) => {
 const getTopTracks = async (token: string, refreshToken: string): Promise<Track[]> => {
     try {
         const data = await fetchWebApi('/api/spotify/top-tracks', token);
+        console.log(data);
         return data.items || [];
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -84,21 +83,21 @@ const refreshSpotifyToken = async (refreshToken: string): Promise<string | null>
     }
 };
 
+
 const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
     const [tracks, setTracks] = useState<Track[]>([]);
     const { setLoading } = useLoading();
 
     useEffect(() => {
+        setLoading(true);
         if (!token) {
             console.error('No token provided!');
             return;
         }
-
-        //setLoading(true); // Start loading
-
         const fetchTracks = async () => {
             try {
-                const topTracks = await getTopTracks(token, refreshToken); // Pass refreshToken
+                const topTracks = await getTopTracks(token, refreshToken);
+                console.log(topTracks[0])
                 setTracks(topTracks);
             } catch (err) {
                 console.error('Error fetching top tracks:', err);
@@ -115,26 +114,36 @@ const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
     }
 
     return (
-        <Box component="section">
-            <Grid container spacing={{ xs: 2, md: 8 }}>
-                {tracks.map((track, index) => (
-                    <Grid key={index} item xs={12} sm={6} md={4}>
-                        <div style={{ textAlign: 'center' }}>
-                            <img
-                                src={track.album.images[0]?.url}
-                                alt={track.name}
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                            <div>
-                                <span>
-                                    {track.name} by {track.artists.map(artist => artist.name).join(', ')}
-                                </span>
-                            </div>
-                        </div>
-                    </Grid>
-                ))}
-            </Grid>
-        </Box>
+        <Container maxWidth="lg" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+            <Box component="section">
+                <Grid container spacing={2}>
+                    {tracks.map((track, index) => (
+                        <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
+                            <Link
+                                to={
+                                    { pathname: `/projects/sortihue/result/${index}`, }
+                                }
+                                state={{ track }}
+
+                            >
+                                <div style={{ textAlign: 'center' }}>
+                                    <img
+                                        src={track.album.images[0]?.url}
+                                        alt={track.name}
+                                        style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                                    />
+                                    <div style={{ marginTop: '10px' }}>
+                                        <span style={{ color: 'var(--text-color)', textDecoration: 'none' }}>
+                                            {track.name} by {track.artists.map(artist => artist.name).join(', ')}
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+        </Container >
     );
 };
 

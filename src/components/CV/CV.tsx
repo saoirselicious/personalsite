@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { Container, Divider, Button } from '@mui/material';
 import {
@@ -20,8 +20,10 @@ import {
   VscodePlain,
   TypescriptOriginal,
 } from 'devicons-react';
-import data from './sample.json';
+// import data from './sample.json';
 import Tooltip from '@mui/material/Tooltip';
+import { fetchCVContent } from '../Utilities/CvUtility';
+import { useLoading } from '../Splashscreen/SplashScreen'
 
 const skillIcons: { [key: string]: JSX.Element } = {
   'Azure DevOps': <AzuredevopsOriginal size="2em" />,
@@ -60,9 +62,45 @@ const SkillItem: React.FC<SkillItemProps> = ({ skills }) => (
   </span>
 );
 
+interface ResumeInterface {
+  summary: string;
+  work_experience: WorkExperienceInterface[];
+  education: EducationInterface[];
+  programming_skills: ProgrammingSkillsInterface;
+  hobbies: string[];
+}
+
+interface WorkExperienceInterface {
+  company: string;
+  location: string;
+  position: string;
+  dates: string;
+  description: string;
+  projects?: ProjectInterface[];
+}
+
+interface ProjectInterface {
+  name: string;
+  description: string;
+  technologies: string[];
+}
+
+interface EducationInterface {
+  institution: string;
+  degree: string;
+  grade?: string;
+  dates: string;
+}
+
+interface ProgrammingSkillsInterface {
+  languages: string[];
+  technologies: string[];
+}
+
 const CV: React.FC = () => {
-  const { summary, work_experience, education, programming_skills, hobbies } = data;
+  const [data, setData] = useState<ResumeInterface | null>(null);
   const [state, setState] = useState({ text: "Icon", isVisible: true });
+  const { loading, setLoading } = useLoading();
 
   function showIcon() {
     console.log("showIcon");
@@ -84,98 +122,156 @@ const CV: React.FC = () => {
     console.log("Updated state:", state);
   }
 
+  useEffect(() => {
+    console.log("fetchCVContent")
+    setLoading(true)
+    fetchCVContent().then((result) => {
+      console.log(result);
+      setLoading(false);
+      if (result) {
+        const cvData: ResumeInterface = {
+          summary: result.summary ? result.summary[0][0] : '',
+          work_experience: result.work_experience.map((exp: any) => ({
+            company: exp[0],
+            location: exp[1],
+            position: exp[2],
+            dates: exp[3],
+            description: exp[4],
+          })),
+          education: [], // Add education mapping if available
+          programming_skills: {
+            languages: result.programming_skills
+              .filter((skill: any) => skill[0] === 'language')
+              .map((skill: any) => skill[1]),
+            technologies: result.programming_skills
+              .filter((skill: any) => skill[0] === 'technology')
+              .map((skill: any) => skill[1]),
+          },
+          hobbies: result.hobbies.map((hobby: any) => hobby[0]),
+        };
+        setData(cvData);
+      }
+    })
+  }, [setLoading])
 
 
   return (
     <Container maxWidth="xl" sx={{ padding: '2rem 0' }}>
-      <div className="container">
-        {/* Header */}
-        <header className="header">
-          <h1>Saoirse Seeber (she/her)</h1>
-        </header>
+      {loading ? null : data == null ? (
+        <p>No experience data available</p>
+      ) : (
+        <div className="container">
+          {/* Header */}
+          <header className="header">
+            <h1>Saoirse Seeber (she/her)</h1>
+          </header>
 
-        {/* Summary */}
-        <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+          {/* Summary */}
+          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+          <section className="summary">
+            <h2>Summary</h2>
+            <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+            {data?.summary ? <p>{data.summary}</p> : <p>No summary available</p>}
+          </section>
 
-        <section className="summary">
-          <h2>Summary</h2>
-          <Divider sx={{ bgcolor: 'var(--primary-color)',marginBottom: '0.5rem' }} />
+          {/* Work Experience */}
+          <section className="experience">
+            <h2>
+              Work Experience{' '}
+              <Button variant="contained" onClick={showIcon} sx={{ bgcolor: 'var(--secondary-color)' }}>
+                {state.text}
+              </Button>
+            </h2>
+            <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+            {data?.work_experience && data.work_experience.length > 0 ? (
+              data.work_experience.map((job, index) => (
+                <div className="job" key={index}>
+                  <h3>{job.company}</h3>
+                  <p>{job.location}</p>
+                  <p>{job.position} | {job.dates}</p>
+                  <ul>
+                    {job.projects?.map((project, i) => (
+                      <li key={i}>
+                        <strong>{project.name}:</strong> <p>{project.description}</p>
+                        {state.isVisible === true ? (
+                          <SkillItem skills={project.technologies} />
+                        ) : (
+                          <p>{project.technologies.join(', ')}</p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            ) : (
+              <p>No work experience available</p>
+            )}
+          </section>
 
-          <p>{summary}</p>
-        </section>
+          {/* Education */}
+          <section className="education">
+            <h2>Education</h2>
+            <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+            {data?.education && data.education.length > 0 ? (
+              data.education.map((degree, index) => (
+                <div className="degree" key={index}>
+                  <h3>{degree.institution}</h3>
+                  <p>{degree.degree} | {degree.dates}</p>
+                </div>
+              ))
+            ) : (
+              <p>No education details available</p>
+            )}
+          </section>
 
-        {/* Work Experience */}
-        <section className="experience">
-          <h2>Work Experience <Button variant="contained" onClick={showIcon} sx={{ bgcolor: 'var(--secondary-color)'}}>{state.text}</Button></h2>
-          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom:'0.5rem'}} />
-          {work_experience.map((job, index) => (
-            <div className="job" key={index}>
-              <h3>{job.company}</h3>
-              <p>{job.location}</p>
-              <p>{job.position} | {job.dates}</p>
+          {/* Programming Skills */}
+          <section className="skills">
+            <h2>Programming Skills</h2>
+            <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+            {data?.programming_skills ? (
+              <>
+                <strong>Languages:</strong>
+                <ul>
+                  {state.isVisible === true ? (
+                    <SkillItem skills={data.programming_skills.languages} />
+                  ) : (
+                    <p>{data.programming_skills.languages.join(', ')}</p>
+                  )}
+                </ul>
+                <strong>Technologies</strong>
+                <ul>
+                  {state.isVisible === true ? (
+                    <SkillItem skills={data.programming_skills.technologies} />
+                  ) : (
+                    <p>{data.programming_skills.technologies.join(', ')}</p>
+                  )}
+                </ul>
+              </>
+            ) : (
+              <p>No programming skills available</p>
+            )}
+          </section>
+
+          {/* Hobbies */}
+          <section className="hobbies">
+            <h2>Hobbies</h2>
+            <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+            {data?.hobbies && data.hobbies.length > 0 ? (
               <ul>
-                {job.projects?.map((project, i) => (
-                  <li key={i}>
-                    <strong>{project.name}:</strong> <p>{project.description}</p>
-                    {state.isVisible === true ? (
-                      <SkillItem skills={project.technologies} />
-                    ) : (
-                      <p>{project.technologies.join(', ')}</p>
-                    )}
+                {data.hobbies.map((hobby, index) => (
+                  <li key={index}>
+                    <strong>{hobby}:</strong> {hobby}
                   </li>
                 ))}
               </ul>
-            </div>
-          ))}
-        </section>
-
-        {/* Education */}
-        <section className="education">
-          <h2>Education</h2>
-          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem'}} />
-          {education.map((degree, index) => (
-            <div className="degree" key={index}>
-              <h3>{degree.institution}</h3>
-              <p>{degree.degree} | {degree.dates}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* Programming Skills */}
-        <section className="skills">
-          <h2>Programming Skills</h2>
-          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem'}} />
-          <strong>Languages:</strong>
-          <ul>
-            {state.isVisible === true ? (
-              <SkillItem skills={programming_skills.languages} />
             ) : (
-              <p>{programming_skills.languages.join(', ')}</p>
+              <p>No hobbies listed</p>
             )}
-          </ul>
-          <strong>Technologies</strong>
-          <ul>
-            {state.isVisible === true ? (
-              <SkillItem skills={programming_skills.technologies} />
-            ) : (
-              <p>{programming_skills.technologies.join(', ')}</p>
-            )}
-          </ul>
-        </section>
-
-        {/* Hobbies */}
-        <section className="hobbies">
-          <h2>Hobbies</h2>
-          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem'}} />
-          <ul>
-            {hobbies.map((hobby, index) => (
-              <li key={index}><strong>{hobby}:</strong> {hobby}</li>
-            ))}
-          </ul>
-        </section>
-      </div>
+          </section>
+        </div>
+      )}
     </Container>
   );
-};
+}
 
 export default CV;
