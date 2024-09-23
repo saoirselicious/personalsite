@@ -109,6 +109,11 @@ const Skills: React.FC = () => {
           sx={{ input: { color: 'var(--text-color)' } }}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          slotProps={{
+            inputLabel: {
+              style: { color: 'var(--text-color)' },
+            },
+          }}
         />
         <Box>
           {Object.keys(filteredSkills).map((classification) => (
