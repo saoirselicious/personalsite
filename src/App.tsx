@@ -27,18 +27,22 @@ export default function App() {
 function AppContent() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('spotifyToken'));
   const [refreshToken] = useState<string | null>(() => localStorage.getItem('refreshToken') || null);
+  const [currentTheme, setCurrentTheme] = useState<string | null | undefined>();
 
   const { loading } = useLoading();
   const { error } = useError();
 
+
+
   const toggleTheme = () => {
-    console.log("toggleTheme");
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    const currentThemeFromDOM = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentThemeFromDOM === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', newTheme);
+    setCurrentTheme(newTheme);
   };
 
   useEffect(() => {
+    toggleTheme();
     const themeToggleButton = document.querySelector('#theme-toggle');
     if (themeToggleButton) {
       themeToggleButton.addEventListener('click', toggleTheme);
@@ -58,37 +62,37 @@ function AppContent() {
   }, [refreshToken]);
 
   if (error) {
+    <Navbar toggleTheme={toggleTheme} />
     return <ErrorSplash />;
-  }
-
-  if (loading) {
-    return <LoadingSplash />;
   }
 
   return (
     <Router>
       <Navbar toggleTheme={toggleTheme} />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/resume" element={<CV />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/education" element={<Education />} />
-        <Route path="/projects" element={<Portfolio />} />
-        <Route path="/projects/sortihue" element={<TopTracks />} />
-        <Route
-          path="/projects/sortihue/result"
-          element={
-            <TopTracksList
-              token={token || localStorage.getItem('token') || ''}
-              refreshToken={refreshToken || localStorage.getItem('refreshToken') || ''}
-            />
-          }
-        />
-        <Route path="/projects/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
-        <Route path="*" element={<NotFoundSplash />} />
-      </Routes>
+      <LoadingSplash />
+      <div className={loading ? "hidden":""}>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/resume" element={<CV />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/education" element={<Education dataTheme={currentTheme} />} />
+          <Route path="/projects" element={<Portfolio />} />
+          <Route path="/projects/sortihue" element={<TopTracks />} />
+          <Route
+            path="/projects/sortihue/result"
+            element={
+              <TopTracksList
+                token={token || localStorage.getItem('token') || ''}
+                refreshToken={refreshToken || localStorage.getItem('refreshToken') || ''}
+              />
+            }
+          />
+          <Route path="/projects/sortihue/callback" element={<SpotifyCallback onTokenFetched={(token) => { setToken(token); localStorage.setItem('spotifyToken', token); }} />} />
+          <Route path="*" element={<NotFoundSplash />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

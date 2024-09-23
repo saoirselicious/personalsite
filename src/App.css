@@ -27,6 +27,10 @@ body{
   color: var(--text-color);
 }
 
+.hidden{
+  visibility: none;
+}
+
 /* General Container */
 .container {
   width: 80%;
@@ -41,9 +45,6 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 
 .header h1 {
@@ -62,15 +63,12 @@ body{
 /* Section Titles */
 section h2 {
   font-size: 1.8rem;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 0.5rem;
 }
 
 /* Summary Section */
 .summary p {
   font-size: 1rem;
-  margin-bottom: 20px;
 }
 
 /* Experience Section */
@@ -86,7 +84,6 @@ section h2 {
 .experience .job p {
   margin: 5px 0;
   font-size: 0.95rem;
-  color: var(--primary-color);
 }
 
 .experience ul {
@@ -101,11 +98,6 @@ section h2 {
 
 .experience strong {
   font-weight: bold;
-}
-
-.experience em {
-  font-style: italic;
-  color: var(--primary-color);
 }
 
 /* Education Section */
@@ -161,7 +153,7 @@ section h2 {
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  border-bottom: 1px solid var(--accent-color);
+  border-bottom: 2px solid var(--primary-color);
   height: 50px;
   font-size: 15px;
   line-height: 1.25rem;
@@ -202,7 +194,7 @@ section h2 {
   align-items: center;
 }
 
-.mobile-menu-icon {
+#mobile-menu-icon {
   display: none;
   background: none;
   border: none;
@@ -244,28 +236,11 @@ section h2 {
   .navbar-actions {
     gap: 0;
   }
-}
 
-/* Highlight Text in Nav */
-
-
-div.highlightTextOut a:before, div.highlightTextIn a:before
-{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 10px;
-  overflow: hidden;
-  content: attr(alt);
-  transition: all 0.3s;
-  transform: scale(0.8);
-  opacity: 0;
-} 
-
-div.highlightTextOut a:hover:before, div.highlightTextIn a:hover:before
-{
-  transform: scale(1);
-  opacity: 1;
+  .navbar-actions.open {
+    display: flex;
+    background-color: var(--highlight-background-color);
+  }
 }
 
 /* Highlight Text Adjustments */
@@ -273,7 +248,3 @@ div.highlightTextIn a {
   color: var(--text-color); /* Adapt to the current theme's text color */
 }
 
-div.highlightTextOut a:before, 
-div.highlightTextIn a:before {
-  color: var(--secondary-color); /* Use the secondary color for better contrast */
-}

@@ -105,7 +105,8 @@ const Skills: React.FC = () => {
           id="skills-search"
           label="Search"
           variant="outlined"
-          style={{ width: "75%", marginBottom: '20px', backgroundColor: 'var(--highlight-background-color)' }}
+          style={{ width: "75%", marginBottom: '20px', color: 'var(--text-color)', backgroundColor: 'var(--highlight-background-color)' }}
+          sx={{ input: { color: 'var(--text-color)' } }}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

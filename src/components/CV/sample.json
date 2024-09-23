@@ -10,7 +10,7 @@
         "projects": [
           {
             "name": "AutoQA Dashboard",
-            "description": "Led development of a dashboard, tracking the progress of automating QA processes. Enhanced data scrubbing & streamlined environment promotion using CI/CD pipelines.",
+            "description": "Led development of a d ashboard, tracking the progress of automating QA processes. Enhanced data scrubbing & streamlined environment promotion using CI/CD pipelines.",
             "technologies": ["React", ".Net", "Azure DevOps"]
           },
           {

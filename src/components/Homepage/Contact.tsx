@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Container, TextField, Button, FormControl, Typography, Box } from '@mui/material';
+import { Container, Button, FormControl, Typography, Box, InputLabel, Input } from '@mui/material';
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from "react-google-recaptcha";
 import { fetchRecaptchaConfig, fetchEmailJSConfig } from '../Utilities/ContactUtility';
@@ -64,31 +64,80 @@ const Contact: React.FC = () => {
         </Typography>
         <form ref={form} onSubmit={sendEmail}>
           <FormControl fullWidth margin="normal">
-            <TextField
-              label="Name"
+            <InputLabel style={{
+              color: 'var(--text-color)',
+              paddingTop: '15px'
+            }}>Name</InputLabel>
+            <Input
+              type='name'
               name="from"
               value={name}
+              sx={{
+                color: 'var(--text-color)',
+                backgroundColor: 'var(--highlight-background-color)',
+                padding: '12px',
+                borderRadius: '4px',
+                border: '1px solid var(--border-color)',
+                '&:hover': {
+                  borderColor: 'var(--primary-color)',
+                },
+                '&.Mui-focused': {
+                  borderColor: 'var(--primary-color)',
+                },
+                '&.Mui-error': {
+                  borderColor: 'var(--error-color)',
+                },
+              }}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </FormControl>
           <FormControl fullWidth margin="normal">
-            <TextField
-              label="Email"
+            <InputLabel style={{
+              color: 'var(--text-color)',
+              paddingTop: '15px'
+            }}>Email</InputLabel>
+            <Input
               type="email"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              sx={{
+                color: 'var(--text-color)',
+                backgroundColor: 'var(--highlight-background-color)',
+                padding: '12px', 
+                borderRadius: '4px', 
+                border: '1px solid var(--border-color)', 
+                '&:hover': {
+                  borderColor: 'var(--primary-color)',
+                },
+                '&.Mui-focused': {
+                  borderColor: 'var(--primary-color)',
+                },
+                '&.Mui-error': {
+                  borderColor: 'var(--error-color)', 
+                },
+              }}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </FormControl>
-          <FormControl fullWidth margin="normal">
-            <TextField
-              label="Message"
+          <FormControl variant='outlined' fullWidth margin="normal">
+            <InputLabel style={{
+              color: 'var(--text-color)',
+              paddingTop: '15px',
+              border: 'red'
+            }}>Message</InputLabel>
+            <Input
               multiline
               rows={4}
               name="message"
               value={message}
+              sx={{
+                color: 'var(--text-color)',
+                backgroundColor: 'var(--highlight-background-color)',
+                padding: '12px',
+                borderRadius: '8px',
+              }}
               onChange={(e) => setMessage(e.target.value)}
               required
             />
@@ -109,7 +158,7 @@ const Contact: React.FC = () => {
           </Button>
         </form>
       </Box>
-    </Container>
+    </Container >
   );
 };
 

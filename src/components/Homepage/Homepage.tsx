@@ -28,12 +28,12 @@ const Homepage = () => {
       {/* Icons Section */}
       <Box sx={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center', gap: 2 }}>
         <IconButton href="https://www.linkedin.com/in/saoirse-seeber" target="_blank" >
-          <LinkedInIcon />
+          <LinkedInIcon style={{color: 'var(--text-color)'}}/>
         </IconButton>
         <IconButton href="https://github.com/saoirselicious" target="_blank" >
-          <GitHubIcon />
+          <GitHubIcon  style={{color: 'var(--text-color)'}}/>
         </IconButton>        <IconButton href="https://github.com/saoirselicious" target="_blank" >
-          <ContactPageIcon />
+          <ContactPageIcon  style={{color: 'var(--text-color)'}}/>
         </IconButton>
       </Box>
 

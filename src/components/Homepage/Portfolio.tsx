@@ -22,6 +22,17 @@ const Portfolio: React.FC = () => {
                     <IconButton>
                         <Select
                             multiple
+                            inputProps={{
+                                MenuProps: {
+                                    MenuListProps: {
+                                        sx: {
+                                            backgroundColor: 'var(--highlight-background-color)',
+                                            color: 'var(--text-color)',
+                                        }
+                                    }
+                                }
+                            }}
+
                             value={selectedOptions}
                             onChange={handleChange}
                             renderValue={(selected) => (
@@ -29,7 +40,7 @@ const Portfolio: React.FC = () => {
                                     {selected.length ? selected.join(', ') : 'Filter'}
                                 </Typography>
                             )}
-                            sx={{ minWidth: 200, border: 'none' }}
+                            sx={{ minWidth: 200, backgroundColor: 'var(--card-background-color)', color: 'var(--text-color)' }}
                             IconComponent={() => (
                                 <IconButton>
                                     <FilterAltIcon />

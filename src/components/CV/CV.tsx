@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../App.css';
-import { Container } from '@mui/material';
+import { Container, Divider, Button } from '@mui/material';
 import {
   AzuredevopsOriginal,
   CplusplusPlain,
@@ -20,7 +20,7 @@ import {
   VscodePlain,
   TypescriptOriginal,
 } from 'devicons-react';
-import data from './sample.json'; // Assuming the JSON is in the same folder
+import data from './sample.json';
 import Tooltip from '@mui/material/Tooltip';
 
 const skillIcons: { [key: string]: JSX.Element } = {
@@ -62,6 +62,29 @@ const SkillItem: React.FC<SkillItemProps> = ({ skills }) => (
 
 const CV: React.FC = () => {
   const { summary, work_experience, education, programming_skills, hobbies } = data;
+  const [state, setState] = useState({ text: "Icon", isVisible: true });
+
+  function showIcon() {
+    console.log("showIcon");
+    if (state.isVisible) {
+      setState(prevState => ({
+        ...prevState,
+        text: "Text",
+        isVisible: false,
+      }));
+    }
+    else {
+      setState(prevState => ({
+        ...prevState,
+        text: "Icon",
+        isVisible: true,
+      }));
+    }
+
+    console.log("Updated state:", state);
+  }
+
+
 
   return (
     <Container maxWidth="xl" sx={{ padding: '2rem 0' }}>
@@ -72,14 +95,19 @@ const CV: React.FC = () => {
         </header>
 
         {/* Summary */}
+        <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
+
         <section className="summary">
           <h2>Summary</h2>
+          <Divider sx={{ bgcolor: 'var(--primary-color)',marginBottom: '0.5rem' }} />
+
           <p>{summary}</p>
         </section>
 
         {/* Work Experience */}
         <section className="experience">
-          <h2>Work Experience</h2>
+          <h2>Work Experience <Button id="iconOrText" variant="contained" onClick={showIcon}>{state.text}</Button></h2>
+          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom:'0.5rem'}} />
           {work_experience.map((job, index) => (
             <div className="job" key={index}>
               <h3>{job.company}</h3>
@@ -89,7 +117,11 @@ const CV: React.FC = () => {
                 {job.projects?.map((project, i) => (
                   <li key={i}>
                     <strong>{project.name}:</strong> <p>{project.description}</p>
-                    <SkillItem skills={project.technologies} />
+                    {state.isVisible === true ? (
+                      <SkillItem skills={project.technologies} />
+                    ) : (
+                      <p>{project.technologies.join(', ')}</p>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -100,6 +132,7 @@ const CV: React.FC = () => {
         {/* Education */}
         <section className="education">
           <h2>Education</h2>
+          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem'}} />
           {education.map((degree, index) => (
             <div className="degree" key={index}>
               <h3>{degree.institution}</h3>
@@ -111,19 +144,29 @@ const CV: React.FC = () => {
         {/* Programming Skills */}
         <section className="skills">
           <h2>Programming Skills</h2>
+          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem'}} />
           <strong>Languages:</strong>
           <ul>
-            <SkillItem skills={programming_skills.languages} />
+            {state.isVisible === true ? (
+              <SkillItem skills={programming_skills.languages} />
+            ) : (
+              <p>{programming_skills.languages.join(', ')}</p>
+            )}
           </ul>
           <strong>Technologies</strong>
           <ul>
-            <SkillItem skills={programming_skills.technologies} />
+            {state.isVisible === true ? (
+              <SkillItem skills={programming_skills.technologies} />
+            ) : (
+              <p>{programming_skills.technologies.join(', ')}</p>
+            )}
           </ul>
         </section>
 
         {/* Hobbies */}
         <section className="hobbies">
           <h2>Hobbies</h2>
+          <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem'}} />
           <ul>
             {hobbies.map((hobby, index) => (
               <li key={index}><strong>{hobby}:</strong> {hobby}</li>
