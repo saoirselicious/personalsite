@@ -7,13 +7,34 @@ import profileImg from "../../images/profile.png"
 
 const Homepage = () => {
   return (
-    <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
-      {/* Picture Section */}
-      <Box component="img"
-        src={profileImg}
-        alt="Profile Picture"
-        sx={{ height: '150px', width: '150px', borderRadius: '50%', marginBottom: '1.5rem' }}
-      />
+    <Container maxWidth="xl" sx={{
+      textAlign: 'center',
+      padding: '2rem 0',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      minHeight: '95vh',
+    }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center' // Center content inside the Box
+        }}
+      >
+        {/* Picture Section */}
+        <Box
+          component="img"
+          src={profileImg}
+          alt="Profile Picture"
+          sx={{
+            height: '150px',
+            width: '150px',
+            borderRadius: '50%',
+            marginBottom: '1.5rem'
+          }}
+        />
+      </Box>
 
       {/* Three Word Summary */}
       <Typography variant="h4" sx={{ marginBottom: '1rem' }}>
@@ -28,19 +49,27 @@ const Homepage = () => {
       {/* Icons Section */}
       <Box sx={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center', gap: 2 }}>
         <IconButton href="https://www.linkedin.com/in/saoirse-seeber" target="_blank" >
-          <LinkedInIcon style={{color: 'var(--text-color)'}}/>
+          <LinkedInIcon style={{ color: 'var(--text-color)' }} />
         </IconButton>
         <IconButton href="https://github.com/saoirselicious" target="_blank" >
-          <GitHubIcon  style={{color: 'var(--text-color)'}}/>
+          <GitHubIcon style={{ color: 'var(--text-color)' }} />
         </IconButton>        <IconButton href="https://github.com/saoirselicious" target="_blank" >
-          <ContactPageIcon  style={{color: 'var(--text-color)'}}/>
+          <ContactPageIcon style={{ color: 'var(--text-color)' }} />
         </IconButton>
       </Box>
 
       {/* CV Download */}
-      <Button variant="contained" sx={{ backgroundColor: 'var(--primary-color)' }} href="/path/to/your/cv.pdf" download>
-        Download CV
-      </Button>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Button variant="contained" sx={{ backgroundColor: 'var(--primary-color)', width: '30%', }} href="/path/to/your/cv.pdf" download>
+          Download CV
+        </Button>
+      </Box>
 
     </Container >
   );

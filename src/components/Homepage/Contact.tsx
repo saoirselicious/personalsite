@@ -56,7 +56,11 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+    <Container maxWidth="xl" sx={{
+      textAlign: 'center', display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center', minHeight: '50rem', padding: '2rem 0'
+    }}>
 
       <Box sx={{ maxWidth: 600, margin: 'auto', padding: 4 }}>
         <Typography variant="h4" gutterBottom>
@@ -104,9 +108,9 @@ const Contact: React.FC = () => {
               sx={{
                 color: 'var(--text-color)',
                 backgroundColor: 'var(--highlight-background-color)',
-                padding: '12px', 
-                borderRadius: '4px', 
-                border: '1px solid var(--border-color)', 
+                padding: '12px',
+                borderRadius: '4px',
+                border: '1px solid var(--border-color)',
                 '&:hover': {
                   borderColor: 'var(--primary-color)',
                 },
@@ -114,7 +118,7 @@ const Contact: React.FC = () => {
                   borderColor: 'var(--primary-color)',
                 },
                 '&.Mui-error': {
-                  borderColor: 'var(--error-color)', 
+                  borderColor: 'var(--error-color)',
                 },
               }}
               onChange={(e) => setName(e.target.value)}
