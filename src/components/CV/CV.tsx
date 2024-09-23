@@ -106,7 +106,7 @@ const CV: React.FC = () => {
 
         {/* Work Experience */}
         <section className="experience">
-          <h2>Work Experience <Button id="iconOrText" variant="contained" onClick={showIcon}>{state.text}</Button></h2>
+          <h2>Work Experience <Button variant="contained" onClick={showIcon} sx={{ bgcolor: 'var(--secondary-color)'}}>{state.text}</Button></h2>
           <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom:'0.5rem'}} />
           {work_experience.map((job, index) => (
             <div className="job" key={index}>
