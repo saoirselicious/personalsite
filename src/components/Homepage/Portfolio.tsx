@@ -15,7 +15,7 @@ const Portfolio: React.FC = () => {
         setSelectedOptions(event.target.value as string[]);
     };
     return (
-        <Container maxWidth="xl" sx={{ padding: '2rem 0' }}>
+        <Container maxWidth="xl" sx={{ padding: '2rem' }}>
             <Box className="Portfolio" sx={{ position: 'relative' }}>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>

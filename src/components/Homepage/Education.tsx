@@ -10,7 +10,7 @@ interface EducationProps {
 const Education: React.FC<EducationProps> = ({ dataTheme }) => {
 
   return (
-    <Container maxWidth="sm" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+    <Container maxWidth="sm" sx={{ textAlign: 'center', padding: '2rem' }}>
       <Box>
         <Typography variant="h4">
           Education

@@ -60,7 +60,7 @@ export default function Experience() {
     }, [setError, setLoading]);
 
     return (
-        <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+        <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem' }}>
             <Timeline position="alternate">
                 {data?.length === 0 && loading === false? (
                     <p>No experience data available</p>

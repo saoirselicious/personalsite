@@ -96,7 +96,7 @@ const Skills: React.FC = () => {
   }, {} as { [key: string]: Skill[] });
 
   return (
-    <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+    <Container maxWidth="xl" sx={{ textAlign: 'center', padding: '2rem' }}>
       <Box p={3} component="section" textAlign="center">
         <Typography variant="h1" gutterBottom>
           Skills
@@ -130,11 +130,13 @@ const Skills: React.FC = () => {
                         borderRadius: 3,
                         width: '95%',
                         display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' }, // Change to column on small screens
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '0 10px',
                         backgroundColor: 'var(--card-background-color)',
-                        color: 'var(--text-color)'
+                        color: 'var(--text-color)',
+                        gap: 1, // Optional: Add space between lines
                       }}
                     >
                       <Typography variant="h6" component="div">

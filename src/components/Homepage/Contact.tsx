@@ -59,7 +59,7 @@ const Contact: React.FC = () => {
     <Container maxWidth="xl" sx={{
       textAlign: 'center', display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center', minHeight: '50rem', padding: '2rem 0'
+      justifyContent: 'center', minHeight: '50rem', padding: '2rem'
     }}>
 
       <Box sx={{ maxWidth: 600, margin: 'auto', padding: 4 }}>

@@ -156,7 +156,7 @@ const CV: React.FC = () => {
 
 
   return (
-    <Container maxWidth="xl" sx={{ padding: '2rem 0' }}>
+    <Container maxWidth="xl" sx={{ padding: '2rem' }}>
       {loading ? null : data == null ? (
         <p>No experience data available</p>
       ) : (

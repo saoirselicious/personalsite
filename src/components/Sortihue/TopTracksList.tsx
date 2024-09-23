@@ -114,7 +114,7 @@ const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
     }
 
     return (
-        <Container maxWidth="lg" sx={{ textAlign: 'center', padding: '2rem 0' }}>
+        <Container maxWidth="lg" sx={{ textAlign: 'center', padding: '2rem' }}>
             <Box component="section">
                 <Grid container spacing={2}>
                     {tracks.map((track, index) => (

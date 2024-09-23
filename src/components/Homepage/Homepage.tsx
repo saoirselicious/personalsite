@@ -9,7 +9,7 @@ const Homepage = () => {
   return (
     <Container maxWidth="xl" sx={{
       textAlign: 'center',
-      padding: '2rem 0',
+      padding: '2rem',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
