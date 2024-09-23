@@ -47,7 +47,7 @@ export const getClientCredentialsToken = async () => {
     const { clientId, clientSecret } = await fetchSpotifyConfig(); // Fetch config to get client credentials
     const url = 'https://accounts.spotify.com/api/token';
     const data = new URLSearchParams({
-      grant_type: 'client_credentials',
+      grant_type: 'authorization_code',
       client_id: clientId,
       client_secret: clientSecret,
     });

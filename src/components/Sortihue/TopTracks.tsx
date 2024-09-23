@@ -47,6 +47,20 @@ const TopTracks: React.FC = () => {
                 minHeight: '100vh',
             }}
         >
+            <Button
+                variant="contained"
+                onClick={handleLogin}
+                sx={{
+                    marginBottom: '10px',
+                    borderRadius: 50,
+                    textTransform: 'none',
+                    fontSize: '16px',
+                    padding: '10px 20px',
+                    backgroundColor: '#1DB954'
+                }}
+            >
+                Log in with Spotify
+            </Button>
             <Box
                 sx={{
                     textAlign: 'center',
@@ -66,19 +80,6 @@ const TopTracks: React.FC = () => {
                     {displayText}
                 </Typography>
             </Box>
-            <Button
-                variant="contained"
-                onClick={handleLogin}
-                sx={{
-                    borderRadius: 50, 
-                    textTransform: 'none', 
-                    fontSize: '16px',
-                    padding: '10px 20px', 
-                    backgroundColor: '#1DB954'
-                }}
-            >
-                Log in with Spotify
-            </Button>
         </Container>
     );
 };
