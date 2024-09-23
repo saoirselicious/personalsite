@@ -20,7 +20,7 @@ interface Props {
 
 const fetchWebApi = async (endpoint: string, token: string) => {
     // const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
-    const url = `http://127.0.0.1:8000${endpoint}`;
+    const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
 
     try {
         const res = await axios({

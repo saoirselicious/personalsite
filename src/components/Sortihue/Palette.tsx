@@ -25,7 +25,7 @@ const Palette: React.FC = () => {
 
         const sendTrackData = async (track: any) => {
             setLoading(true);
-            const url = 'http://127.0.0.1:8000/receive-tracks';
+            const url = 'https://profitable-sheri-seebers-8755823d.koyeb.app/receive-tracks';
             try {
                 const response = await axios.post(url, [track], {
                     headers: {
