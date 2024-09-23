@@ -66,7 +66,12 @@ const Homepage = () => {
           alignItems: 'center'
         }}
       >
-        <Button variant="contained" sx={{ backgroundColor: 'var(--primary-color)', width: '30%', }} href="/path/to/your/cv.pdf" download>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: 'var(--primary-color)', width: '30%' }}
+          href={'/Software_Engineer_CV_Saoirse_Seeber.pdf'}
+          download
+        >
           Download CV
         </Button>
       </Box>
