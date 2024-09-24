@@ -42,14 +42,12 @@ const Contact: React.FC = () => {
         emailJSConfig?.public_key
       )
         .then((result) => {
-          console.log('Email sent: ', result.text);
           alert('Email sent successfully!');
           setName('');
           setEmail('');
           setMessage('');
         })
         .catch((error) => {
-          console.log('Email send error: ', error.text);
           alert('Failed to send the email.');
         });
     }

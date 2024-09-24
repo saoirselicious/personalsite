@@ -19,7 +19,6 @@ interface Props {
 }
 
 const fetchWebApi = async (endpoint: string, token: string) => {
-    // const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
     const url = `https://profitable-sheri-seebers-8755823d.koyeb.app${endpoint}`;
 
     try {
@@ -38,12 +37,10 @@ const fetchWebApi = async (endpoint: string, token: string) => {
 const getTopTracks = async (token: string, refreshToken: string): Promise<Track[]> => {
     try {
         const data = await fetchWebApi('/api/spotify/top-tracks', token);
-        console.log(data);
         return data.items || [];
     } catch (error) {
         if (axios.isAxiosError(error)) {
             if (error.response && error.response.status === 401 && refreshToken) {
-                console.log('Token expired, refreshing...');
                 const newToken = await refreshSpotifyToken(refreshToken);
                 if (newToken) {
                     const data = await fetchWebApi('/api/spotify/top-tracks', newToken);
@@ -97,7 +94,6 @@ const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
         const fetchTracks = async () => {
             try {
                 const topTracks = await getTopTracks(token, refreshToken);
-                console.log(topTracks[0])
                 setTracks(topTracks);
             } catch (err) {
                 console.error('Error fetching top tracks:', err);

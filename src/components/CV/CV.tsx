@@ -108,7 +108,6 @@ const CV: React.FC = () => {
   const { loading, setLoading } = useLoading();
 
   function showIcon() {
-    console.log("showIcon");
     if (state.isVisible) {
       setState(prevState => ({
         ...prevState,
@@ -124,14 +123,11 @@ const CV: React.FC = () => {
       }));
     }
 
-    console.log("Updated state:", state);
   }
 
   useEffect(() => {
-    console.log("fetchCVContent")
     setLoading(true)
     fetchCVContent().then((result) => {
-      console.log(result);
       setLoading(false);
       if (result) {
         const cvData: ResumeInterface = {

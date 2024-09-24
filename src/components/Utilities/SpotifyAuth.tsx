@@ -13,7 +13,6 @@ const fetchSpotifyConfig = async () => {
 
 // Redirect user to Spotify for authentication
 export const redirectToSpotifyAuth = async () => {
-  console.log("Spotify Auth: redirectToSpotifyAuth");
   try {
     const { clientId, redirectUri } = await fetchSpotifyConfig();
     const scopes = 'user-top-read'; // Add necessary scopes here
