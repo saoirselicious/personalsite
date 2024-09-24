@@ -67,7 +67,7 @@ interface ResumeInterface {
   work_experience: WorkExperienceInterface[];
   education: EducationInterface[];
   programming_skills: ProgrammingSkillsInterface;
-  hobbies: string[];
+  hobbies: HobbiesInterface[];
 }
 
 interface WorkExperienceInterface {
@@ -95,6 +95,11 @@ interface EducationInterface {
 interface ProgrammingSkillsInterface {
   languages: string[];
   technologies: string[];
+}
+
+interface HobbiesInterface {
+  name: string;
+  description: string;
 }
 
 const CV: React.FC = () => {
@@ -130,24 +135,54 @@ const CV: React.FC = () => {
       setLoading(false);
       if (result) {
         const cvData: ResumeInterface = {
-          summary: result.summary ? result.summary[0][0] : '',
-          work_experience: result.work_experience.map((exp: any) => ({
-            company: exp[0],
-            location: exp[1],
-            position: exp[2],
-            dates: exp[3],
-            description: exp[4],
-          })),
-          education: [], // Add education mapping if available
-          programming_skills: {
-            languages: result.programming_skills
-              .filter((skill: any) => skill[0] === 'language')
-              .map((skill: any) => skill[1]),
-            technologies: result.programming_skills
-              .filter((skill: any) => skill[0] === 'technology')
-              .map((skill: any) => skill[1]),
-          },
-          hobbies: result.hobbies.map((hobby: any) => hobby[0]),
+          summary: result.summary ? result.summary[0] : '',
+
+          work_experience: result.work_experience ? result.work_experience.map((we: string[], index: number) => ({
+            company: we[0],
+            location: we[1],
+            position: we[2],
+            dates: we[3],
+            description: we[4],
+            projects: result.projects
+              ? result.projects
+                .filter((proj: any) => proj[0] === index + 1)
+                .map((proj: any) => ({
+                  name: proj[1] || '',
+                  description: proj[2] || '',
+                  technologies: proj[3] || []
+                }))
+              : []
+          }))
+            : [],
+
+          education: result.education
+            ? result.education.map((edu: string[]) => ({
+              institution: edu[0],
+              degree: edu[1],
+              grade: edu[2] || undefined,
+              dates: edu[3],
+            }))
+            : [],
+
+          programming_skills: result.programming_skills
+            ? {
+              languages: result.programming_skills
+                .filter((skill: any) => skill[0] === 'language')
+                .map((skill: any) => skill[1]) || [],
+              technologies: result.programming_skills
+                .filter((skill: any) => skill[0] === 'technology')
+                .map((skill: any) => skill[1]) || []
+            }
+            : {
+              languages: [],
+              technologies: []
+            },
+
+          hobbies: result.hobbies
+            ? result.hobbies.map((hobby: any) => ({
+              name: hobby[0], description: hobby[1]
+            }))
+            : []
         };
         setData(cvData);
       }
@@ -260,7 +295,7 @@ const CV: React.FC = () => {
               <ul>
                 {data.hobbies.map((hobby, index) => (
                   <li key={index}>
-                    <strong>{hobby}:</strong> {hobby}
+                    <strong>{hobby.name}:</strong> {hobby.description}
                   </li>
                 ))}
               </ul>
