@@ -4,7 +4,7 @@ import { Container, Typography, Button, Box } from '@mui/material';
 
 const TopTracks: React.FC = () => {
     const [displayText, setDisplayText] = useState('');
-    const intervalRef = useRef<NodeJS.Timeout | null>(null); // Ref to keep track of the interval
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 
     useEffect(() => {
@@ -17,22 +17,22 @@ const TopTracks: React.FC = () => {
                 setDisplayText(prev => prev + fullText[index]);
             } else {
                 if (intervalRef.current) {
-                    clearInterval(intervalRef.current); // Clear the interval once done
+                    clearInterval(intervalRef.current);
                 }
             }
         };
 
-        intervalRef.current = setInterval(typeWriterEffect, 50); // Adjust speed as needed
+        intervalRef.current = setInterval(typeWriterEffect, 50); 
 
         return () => {
             if (intervalRef.current) {
-                clearInterval(intervalRef.current); // Cleanup interval on component unmount
+                clearInterval(intervalRef.current); 
             }
         };
     }, []);
 
     const handleLogin = () => {
-        redirectToSpotifyAuth(); // Assumes this handles redirection
+        redirectToSpotifyAuth();
     };
 
     return (

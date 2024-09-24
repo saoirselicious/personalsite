@@ -4,8 +4,10 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import profileImg from "../../images/profile.png"
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
+
   return (
     <Container maxWidth="xl" sx={{
       textAlign: 'center',
@@ -53,7 +55,8 @@ const Homepage = () => {
         </IconButton>
         <IconButton href="https://github.com/saoirselicious" target="_blank" >
           <GitHubIcon style={{ color: 'var(--text-color)' }} />
-        </IconButton>        <IconButton href="https://github.com/saoirselicious" target="_blank" >
+        </IconButton>
+        <IconButton component={Link} to="/contact">
           <ContactPageIcon style={{ color: 'var(--text-color)' }} />
         </IconButton>
       </Box>

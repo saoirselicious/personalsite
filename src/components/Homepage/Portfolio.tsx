@@ -40,7 +40,7 @@ const Portfolio: React.FC = () => {
                                     {selected.length ? selected.join(', ') : 'Filter'}
                                 </Typography>
                             )}
-                            sx={{ minWidth: 200, backgroundColor: 'var(--highlight-background-color)', color: 'var(--text-color)', border: '2px solid var(--accent-color)' }}
+                            sx={{ minWidth: 200, backgroundColor: 'var(--highlight-background-color)', color: 'var(--text-color)', borderBottom: '2px solid var(--accent-color)' }}
                             IconComponent={() => (
                                 <IconButton>
                                     <FilterAltIcon />

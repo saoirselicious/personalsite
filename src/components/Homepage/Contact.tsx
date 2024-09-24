@@ -157,7 +157,7 @@ const Contact: React.FC = () => {
             variant="contained"
             type="submit"
             disabled={!captchaVerified}
-            sx={{ bgcolor: 'var(--primary-color)'}}
+            sx={{ bgcolor: 'var(--primary-color)' }}
           >
             Send
           </Button>
