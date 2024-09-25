@@ -22,7 +22,6 @@ const Palette: React.FC = () => {
     const { loading, setLoading } = useLoading();
 
     useEffect(() => {
-
         const sendTrackData = async (track: any) => {
             setLoading(true);
             const url = 'https://profitable-sheri-seebers-8755823d.koyeb.app/receive-tracks';
@@ -42,9 +41,7 @@ const Palette: React.FC = () => {
             }
         };
         sendTrackData(track);
-    }, [track, setLoading])
-
-
+    }, [track, setLoading]);
 
     return (
         <Container>
@@ -53,11 +50,10 @@ const Palette: React.FC = () => {
                     <p>No experience data available</p>
                 ) : (
                     <Grid container spacing={2}>
-
                         <Grid size={{ xs: 12, md: 6 }}>
-                            <Typography variant="h3" sx={{ marginBottom: 2 }}>{data.artist} </Typography>
-                            <Typography variant="h4" sx={{ marginBottom: 2 }}>{track.album.name} </Typography>
-                            <Typography variant="h6" sx={{ marginBottom: 2 }}>{data.track} </Typography>
+                            <Typography variant="h3" sx={{ marginBottom: 2 }}>{data.artist}</Typography>
+                            <Typography variant="h4" sx={{ marginBottom: 2 }}>{track.album.name}</Typography>
+                            <Typography variant="h6" sx={{ marginBottom: 2 }}>{data.track}</Typography>
                             <Box
                                 component="img"
                                 src={track.album.images[0]?.url}
@@ -68,7 +64,7 @@ const Palette: React.FC = () => {
 
                         <Grid size={{ xs: 12, md: 6 }}>
                             <Box>
-                                <TableContainer component={Paper} sx={{ backgroundColor: 'var(--background-color)' }}>
+                                <TableContainer component={Paper} sx={{ backgroundColor: 'var(--background-color)', overflowX: 'auto' }}>
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
@@ -81,9 +77,11 @@ const Palette: React.FC = () => {
                                         <TableBody>
                                             {data.group.map((colorGroup, index) => (
                                                 <TableRow key={index}>
-                                                    <TableCell sx={{ color: 'var(--text-color)', borderBottom: 'none' }}><ColorBox rgb={data.palette[index]} /></TableCell>
+                                                    <TableCell sx={{ color: 'var(--text-color)', borderBottom: 'none' }}>
+                                                        <ColorBox rgb={data.palette[index]} />
+                                                    </TableCell>
                                                     <TableCell sx={{ color: 'var(--text-color)', borderBottom: 'none' }} align="center">{colorGroup}</TableCell>
-                                                    <TableCell sx={{ color: 'var(--text-color)', borderBottom: 'none' }} align="center">{'['}{data.palette[index].join(', ')}{']'}</TableCell>
+                                                    <TableCell sx={{ color: 'var(--text-color)', borderBottom: 'none' }} align="center">{`[${data.palette[index].join(', ')}]`}</TableCell>
                                                     <TableCell sx={{ color: 'var(--text-color)', borderBottom: 'none' }} align="center">{data.frequency[index]}</TableCell>
                                                 </TableRow>
                                             ))}
@@ -95,9 +93,7 @@ const Palette: React.FC = () => {
                     </Grid>
                 )}
             </Box>
-        </Container >
-
-
+        </Container>
     );
 };
 

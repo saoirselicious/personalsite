@@ -11,15 +11,22 @@ const ColorBox: React.FC<ColorBoxProps> = ({ rgb }) => {
     return (
         <div
             style={{
-                width: '100px',  
-                height: '100px',
-                backgroundColor: rgbString,
-                border: '1px solid #000', 
-                display: 'flex', 
-                alignItems: 'center', 
+                width: '22px',  
+                height: '22px',
+                border: '2px solid var(--accent-color)',
+                filter: 'invert(1)',
+                display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'center',
             }}
         >
+            <div
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: rgbString,
+                }}
+            />
         </div>
     );
 };

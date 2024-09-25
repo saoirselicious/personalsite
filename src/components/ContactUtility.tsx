@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-
 export async function fetchRecaptchaConfig() {
     try {
         const response = await axios.get('https://profitable-sheri-seebers-8755823d.koyeb.app/api/recaptcha/config');

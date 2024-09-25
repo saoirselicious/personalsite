@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-// Fetch Spotify configuration from your backend
 const fetchSpotifyConfig = async () => {
   try {
     const response = await axios.get('https://profitable-sheri-seebers-8755823d.koyeb.app/api/spotify/config');
     return response.data;
   } catch (error) {
     console.error('Error fetching Spotify config:', error);
-    throw error; // Propagate error to be handled where this function is called
+    throw error; 
   }
 };
 
@@ -30,17 +29,14 @@ export const getSpotifyTokenFromCode = async (code: string) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      // Error is an AxiosError
       console.error('Error fetching token:', error.response?.data || error.message);
     } else {
-      // Handle other types of errors
       console.error('An unexpected error occurred:', error);
     }
-    throw error; // Re-throw the error if needed
+    throw error;
   }
 };
 
-// Get client credentials token
 export const getClientCredentialsToken = async () => {
   try {
     const { clientId, clientSecret } = await fetchSpotifyConfig(); // Fetch config to get client credentials
@@ -57,10 +53,8 @@ export const getClientCredentialsToken = async () => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      // Error is an AxiosError
       console.error('Error fetching token:', error.response?.data || error.message);
     } else {
-      // Handle other types of errors if necessary
       console.error('An unexpected error occurred:', error);
     }
     throw error;

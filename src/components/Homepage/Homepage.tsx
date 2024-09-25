@@ -21,7 +21,7 @@ const Homepage = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center' // Center content inside the Box
+          alignItems: 'center' 
         }}
       >
         {/* Picture Section */}

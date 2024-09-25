@@ -3,7 +3,7 @@ import axios from 'axios';
 import Grid from '@mui/material/Grid2';
 import { Container, Box } from '@mui/material';
 import { useLoading } from '../Splashscreen/SplashScreen';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface Track {
     name: string;
@@ -34,17 +34,28 @@ const fetchWebApi = async (endpoint: string, token: string) => {
     }
 };
 
-const getTopTracks = async (token: string, refreshToken: string): Promise<Track[]> => {
+const getTopTracks = async (token: string, refreshToken: string, bPlaylist: boolean, playlistID: string | null): Promise<Track[]> => {
     try {
-        const data = await fetchWebApi('/api/spotify/top-tracks', token);
+        let data;
+
+        if (bPlaylist && playlistID) {
+            data = await fetchWebApi(`/api/spotify/playlist/${playlistID}`, token);
+        } else {
+            data = await fetchWebApi('/api/spotify/top-tracks', token);
+        }
+
         return data.items || [];
     } catch (error) {
         if (axios.isAxiosError(error)) {
             if (error.response && error.response.status === 401 && refreshToken) {
                 const newToken = await refreshSpotifyToken(refreshToken);
                 if (newToken) {
-                    const data = await fetchWebApi('/api/spotify/top-tracks', newToken);
-                    return data.items || [];
+                    let data;
+                    if (bPlaylist && playlistID) {
+                        data = await fetchWebApi(`/api/spotify/playlist/${playlistID}`, newToken);
+                    } else {
+                        data = await fetchWebApi('/api/spotify/top-tracks', newToken);
+                    } return data.items || [];
                 } else {
                     console.error('Failed to refresh token.');
                     throw new Error('Failed to refresh token');
@@ -84,6 +95,10 @@ const refreshSpotifyToken = async (refreshToken: string): Promise<string | null>
 const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
     const [tracks, setTracks] = useState<Track[]>([]);
     const { setLoading } = useLoading();
+    const location = useLocation();
+    const { bPlaylist, playlistID } = location.state || {};
+
+    console.log(bPlaylist);
 
     useEffect(() => {
         setLoading(true);
@@ -92,8 +107,9 @@ const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
             return;
         }
         const fetchTracks = async () => {
+            console.log("fetchTracks");
             try {
-                const topTracks = await getTopTracks(token, refreshToken);
+                const topTracks = await getTopTracks(token, refreshToken, bPlaylist, playlistID);
                 setTracks(topTracks);
             } catch (err) {
                 console.error('Error fetching top tracks:', err);
@@ -104,6 +120,10 @@ const TopTracksList: React.FC<Props> = ({ token, refreshToken }) => {
 
         fetchTracks();
     }, [token, refreshToken, setLoading]);
+
+    useEffect(() => {
+        console.log('bPlaylist:', bPlaylist); 
+    }, [token, refreshToken, setLoading, bPlaylist, playlistID]);
 
     if (!token) {
         return <div>Please log in to view your top tracks.</div>;
