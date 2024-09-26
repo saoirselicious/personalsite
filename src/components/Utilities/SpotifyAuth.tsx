@@ -10,20 +10,18 @@ const fetchSpotifyConfig = async () => {
   }
 };
 
-// Redirect user to Spotify for authentication
 export const redirectToSpotifyAuth = async () => {
   try {
     const { clientId, redirectUri } = await fetchSpotifyConfig();
-    const scopes = 'user-top-read'; // Add necessary scopes here
+    const scopes = 'user-top-read'; 
     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
   } catch (error) {
     console.error('Error redirecting to Spotify:', error);
   }
 };
 
-// Get Spotify token from authorization code
 export const getSpotifyTokenFromCode = async (code: string) => {
-  const url = 'https://profitable-sheri-seebers-8755823d.koyeb.app/api/spotify/auth'; // Update with your backend URL
+  const url = 'https://profitable-sheri-seebers-8755823d.koyeb.app/api/spotify/auth'; 
   try {
     const response = await axios.post(url, { code });
     return response.data;
@@ -39,7 +37,7 @@ export const getSpotifyTokenFromCode = async (code: string) => {
 
 export const getClientCredentialsToken = async () => {
   try {
-    const { clientId, clientSecret } = await fetchSpotifyConfig(); // Fetch config to get client credentials
+    const { clientId, clientSecret } = await fetchSpotifyConfig(); 
     const url = 'https://accounts.spotify.com/api/token';
     const data = new URLSearchParams({
       grant_type: 'authorization_code',

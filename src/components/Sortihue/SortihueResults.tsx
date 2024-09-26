@@ -98,7 +98,7 @@ const SortihueResults: React.FC<Props> = ({ token, refreshToken }) => {
             } catch (err) {
                 console.error('Error fetching top tracks:', err);
             } finally {
-                setLoading(false); // Stop loading
+                setLoading(false);
             }
         };
 

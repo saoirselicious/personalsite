@@ -1,18 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Box } from '@mui/material'; // Ensure you import Box if you're using a library like MUI
+import { Box } from '@mui/material';
 
-
-// Define the type for children
 type LoadingProviderProps = { children: React.ReactNode };
 
-// Create contexts
 const LoadingContext = createContext<{ loading: boolean; setLoading: React.Dispatch<React.SetStateAction<boolean>> } | null>(null);
 const ErrorContext = createContext<{ error: boolean; setError: React.Dispatch<React.SetStateAction<boolean>> } | null>(null);
 const AuthContext = createContext<{ authError: boolean; setAuthError: React.Dispatch<React.SetStateAction<boolean>> } | null>(null);
 const NotFoundContext = createContext<{ notFound: boolean; setNotFound: React.Dispatch<React.SetStateAction<boolean>> } | null>(null);
 
-// Providers
 export const LoadingProvider: React.FC<LoadingProviderProps> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -53,7 +49,6 @@ export const NotFoundProvider: React.FC<LoadingProviderProps> = ({ children }) =
     );
 };
 
-// Custom hooks
 export const useLoading = () => {
     const context = useContext(LoadingContext);
     if (context === null) {
@@ -86,7 +81,6 @@ export const useNotFound = () => {
     return context;
 };
 
-// LoadingSplash Component
 export const LoadingSplash: React.FC = () => {
     const { loading } = useLoading();
     const [size, setSize] = useState<number>(50);
@@ -124,7 +118,6 @@ export const LoadingSplash: React.FC = () => {
     );
 };
 
-// AuthSplash Component
 export const AuthSplash: React.FC = () => {
     return (
         <Box

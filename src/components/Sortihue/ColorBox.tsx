@@ -5,7 +5,6 @@ interface ColorBoxProps {
 }
 
 const ColorBox: React.FC<ColorBoxProps> = ({ rgb }) => {
-    // Create the RGB string
     const rgbString = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 
     return (

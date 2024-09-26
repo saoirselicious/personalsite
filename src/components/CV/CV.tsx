@@ -20,7 +20,6 @@ import {
   VscodePlain,
   TypescriptOriginal,
 } from 'devicons-react';
-// import data from './sample.json';
 import Tooltip from '@mui/material/Tooltip';
 import { fetchCVContent } from '../Utilities/CvUtility';
 import { useLoading } from '../Splashscreen/SplashScreen'

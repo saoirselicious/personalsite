@@ -38,17 +38,14 @@ const Homepage = () => {
         />
       </Box>
 
-      {/* Three Word Summary */}
       <Typography variant="h4" sx={{ marginBottom: '1rem' }}>
         Innovative, Driven, Growth
       </Typography>
 
-      {/* Paragraph Summary */}
       <Typography variant="body1" sx={{ marginBottom: '2rem' }}>
         Experienced software engineer with nearly half a decade of professional experience in driving innovation. Proficient in quickly adapting to new technologies, driven to create the highest quality products, and always striving for constant growth.
       </Typography>
 
-      {/* Icons Section */}
       <Box sx={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center', gap: 2 }}>
         <IconButton href="https://www.linkedin.com/in/saoirse-seeber" target="_blank" >
           <LinkedInIcon style={{ color: 'var(--text-color)' }} />
@@ -61,7 +58,6 @@ const Homepage = () => {
         </IconButton>
       </Box>
 
-      {/* CV Download */}
       <Box
         sx={{
           display: 'flex',

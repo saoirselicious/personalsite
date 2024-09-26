@@ -22,13 +22,11 @@ import {
   TypescriptOriginal,
 } from 'devicons-react';
 
-// Define Skill Type
 type Skill = {
   name: string;
   classification: string;
 };
 
-// Sample skills data
 const skillsData: Skill[] = [
   { name: 'Javascript', classification: "Programming Languages" },
   { name: 'Typescript', classification: "Programming Languages" },
@@ -49,7 +47,6 @@ const skillsData: Skill[] = [
   { name: 'VS Code', classification: "Tools" },
   { name: 'Unity', classification: "Game Engines" }
 ];
-// Define icons for each skill
 const skillIcons: { [key: string]: JSX.Element } = {
   'Azure DevOps': <AzuredevopsOriginal size="5em" />,
   'Bitbucket': <BitbucketOriginal size="5em" />,
@@ -71,11 +68,9 @@ const skillIcons: { [key: string]: JSX.Element } = {
   'Typescript': <TypescriptOriginal size="5em" />,
 };
 
-// Main Page Component
 const Skills: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  // Group skills by classification
   const groupedSkills = skillsData.reduce((acc, skill) => {
     if (!acc[skill.classification]) {
       acc[skill.classification] = [];
@@ -84,7 +79,6 @@ const Skills: React.FC = () => {
     return acc;
   }, {} as { [key: string]: Skill[] });
 
-  // Filter skills based on search term
   const filteredSkills = Object.keys(groupedSkills).reduce((acc, classification) => {
     const filtered = groupedSkills[classification].filter(skill =>
       skill.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -130,13 +124,13 @@ const Skills: React.FC = () => {
                         borderRadius: 3,
                         width: '95%',
                         display: 'flex',
-                        flexDirection: { xs: 'column', sm: 'row' }, // Change to column on small screens
+                        flexDirection: { xs: 'column', sm: 'row' }, 
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '0 10px',
                         backgroundColor: 'var(--card-background-color)',
                         color: 'var(--text-color)',
-                        gap: 1, // Optional: Add space between lines
+                        gap: 1, 
                       }}
                     >
                       <Typography variant="h6" component="div">

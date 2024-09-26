@@ -23,8 +23,8 @@ interface Project {
 interface myExperience {
     title: string;
     role: string;
-    startDate: string;
-    endDate: string | "Present";
+    start_date: string;
+    end_date: string | "Present";
     icon: React.ReactNode;
     projects: Project[];
 }
@@ -39,14 +39,17 @@ export default function Experience() {
         fetchTimelineContent()
             .then((result) => {
                 if (result) {
-                    const experiencesArray = Object.entries(result as Record<string, any>).map(([company, details]) => ({
-                        title: company,
-                        role: details.role,
-                        startDate: details.start_date,
-                        endDate: details.end_date || "Present",
-                        icon: details.icon,
-                        projects: details.projects || [],
-                    }));
+                    const experiencesArray: myExperience[] = result.map((res: string[]) => {
+                        return {
+
+                            title: res[1],
+                            role: res[2],
+                            start_date: res[3],
+                            end_date: res[4] || "Present",
+                            icon: res[5],
+                            projects: res[6],
+                        }
+                    })
                     setData(experiencesArray);
                 } else {
                     setData([]);
@@ -77,7 +80,7 @@ export default function Experience() {
                                 }}
                             >
                                 <Typography>
-                                    {`${exp.startDate} - ${exp.endDate}`}
+                                    {`${exp.start_date} - ${exp.end_date}`}
                                 </Typography>
                                 <TimelineSeparator
                                     sx={{
