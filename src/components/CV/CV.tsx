@@ -129,26 +129,38 @@ const CV: React.FC = () => {
     fetchCVContent().then((result) => {
       setLoading(false);
       if (result) {
+        console.log(result)
         const cvData: ResumeInterface = {
+
           summary: result.summary ? result.summary[0] : '',
 
-          work_experience: result.work_experience ? result.work_experience.map((we: string[], index: number) => ({
-            company: we[0],
-            location: we[1],
-            position: we[2],
-            dates: we[3],
-            description: we[4],
-            projects: result.projects
-              ? result.projects
-                .filter((proj: any) => proj[0] === index + 1)
-                .map((proj: any) => ({
-                  name: proj[1] || '',
-                  description: proj[2] || '',
-                  technologies: proj[3] || []
-                }))
-              : []
-          }))
-            : [],
+          work_experience: result.work_experience ? result.work_experience.map((we: string[], index: number) => {
+            let technologies: string[] = [];
+
+            for (let i = 0; i < result.programming_technologies.length; i++) {
+              if (result.programming_technologies[i][0] === index + 1) {
+                technologies.push(result.programming_technologies[i + 1][1]);
+                console.log(technologies);
+              }
+            }
+
+            return {
+              company: we[0],
+              location: we[1],
+              position: we[2],
+              dates: we[3],
+              description: we[4],
+              projects: result.projects
+                ? result.projects
+                  .filter((proj: any) => proj[0] === index + 1)
+                  .map((proj: any) => ({
+                    name: proj[1] || '',
+                    description: proj[2] || '',
+                    technologies: technologies // Use the filtered technologies
+                  }))
+                : []
+            };
+          }) : [],
 
           education: result.education
             ? result.education.map((edu: string[]) => ({
@@ -191,12 +203,10 @@ const CV: React.FC = () => {
         <p>No experience data available</p>
       ) : (
         <div className="container">
-          {/* Header */}
           <header className="header">
             <h1>Saoirse Seeber (she/her)</h1>
           </header>
 
-          {/* Summary */}
           <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
           <section className="summary">
             <h2>Summary</h2>
@@ -204,7 +214,6 @@ const CV: React.FC = () => {
             {data?.summary ? <p>{data.summary}</p> : <p>No summary available</p>}
           </section>
 
-          {/* Work Experience */}
           <section className="experience">
             <h2>
               Work Experience{' '}
@@ -282,7 +291,6 @@ const CV: React.FC = () => {
             )}
           </section>
 
-          {/* Hobbies */}
           <section className="hobbies">
             <h2>Hobbies</h2>
             <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
