@@ -130,19 +130,11 @@ const CV: React.FC = () => {
       setLoading(false);
       if (result) {
         console.log(result)
+        let projectIndex = 0;
         const cvData: ResumeInterface = {
-
-          summary: result.summary ? result.summary[0] : '',
-
-          work_experience: result.work_experience ? result.work_experience.map((we: string[], index: number) => {
-            let technologies: string[] = [];
-
-            for (let i = 0; i < result.programming_technologies.length; i++) {
-              if (result.programming_technologies[i][0] === index + 1) {
-                technologies.push(result.programming_technologies[i + 1][1]);
-                console.log(technologies);
-              }
-            }
+          summary: result.summary?.[0] || '',
+          work_experience: result.work_experience?.map((we: string[], index: number) => {
+            const currentProjects = result.projects?.filter((proj: any) => proj[0] === index + 1) || [];
 
             return {
               company: we[0],
@@ -150,47 +142,38 @@ const CV: React.FC = () => {
               position: we[2],
               dates: we[3],
               description: we[4],
-              projects: result.projects
-                ? result.projects
-                  .filter((proj: any) => proj[0] === index + 1)
-                  .map((proj: any) => ({
-                    name: proj[1] || '',
-                    description: proj[2] || '',
-                    technologies: technologies // Use the filtered technologies
-                  }))
-                : []
+              projects: currentProjects.map((proj: any) => {
+                console.log(projectIndex);
+                const technologies = result.programming_technologies?.filter((tech: any) => tech[0] === projectIndex + 1).map((tech: any) => tech[1]) || [];
+                projectIndex += 1;
+
+                return {
+                  name: proj[1] || '',
+                  description: proj[2] || '',
+                  technologies
+                }
+              }),
             };
-          }) : [],
-
-          education: result.education
-            ? result.education.map((edu: string[]) => ({
-              institution: edu[0],
-              degree: edu[1],
-              grade: edu[2] || undefined,
-              dates: edu[3],
-            }))
-            : [],
-
-          programming_skills: result.programming_skills
-            ? {
-              languages: result.programming_skills
-                .filter((skill: any) => skill[0] === 'language')
-                .map((skill: any) => skill[1]) || [],
-              technologies: result.programming_skills
-                .filter((skill: any) => skill[0] === 'technology')
-                .map((skill: any) => skill[1]) || []
-            }
-            : {
-              languages: [],
-              technologies: []
-            },
-
-          hobbies: result.hobbies
-            ? result.hobbies.map((hobby: any) => ({
-              name: hobby[0], description: hobby[1]
-            }))
-            : []
+          }) || [],
+          education: result.education?.map((edu: string[]) => ({
+            institution: edu[0],
+            degree: edu[1],
+            grade: edu[2] || undefined,
+            dates: edu[3],
+          })) || [],
+          programming_skills: result.programming_skills ? {
+            languages: result.programming_skills.filter((skill: any) => skill[0] === 'language').map((skill: any) => skill[1]),
+            technologies: result.programming_skills.filter((skill: any) => skill[0] === 'technology').map((skill: any) => skill[1])
+          } : {
+            languages: [],
+            technologies: []
+          },
+          hobbies: result.hobbies?.map((hobby: any) => ({
+            name: hobby[0],
+            description: hobby[1]
+          })) || [],
         };
+
         setData(cvData);
       }
     })
@@ -247,7 +230,6 @@ const CV: React.FC = () => {
             )}
           </section>
 
-          {/* Education */}
           <section className="education">
             <h2>Education</h2>
             <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
@@ -263,7 +245,6 @@ const CV: React.FC = () => {
             )}
           </section>
 
-          {/* Programming Skills */}
           <section className="skills">
             <h2>Programming Skills</h2>
             <Divider sx={{ bgcolor: 'var(--primary-color)', marginBottom: '0.5rem' }} />
